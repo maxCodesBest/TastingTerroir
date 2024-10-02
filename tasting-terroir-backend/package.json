@@ -1,0 +1,23 @@
+{
+    "name": "tasting-terroir",
+    "version": "1.0.0",
+    "description": "tasting-terroir-backend",
+    "main": "src/server.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "max judkevitch",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "joi": "^17.13.3",
+        "reflect-metadata": "^0.2.2"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.16.10",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}
