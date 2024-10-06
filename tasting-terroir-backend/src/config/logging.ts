@@ -1,5 +1,7 @@
 import { TEST } from './config';
 
+type boldedLog = { message: any; logType: 'log' | 'info' | 'warn' | 'error' };
+
 const colours = {
     reset: '\x1b[0m',
     bright: '\x1b[1m',
@@ -102,13 +104,41 @@ export function error(message?: any, ...optionalParams: any[]) {
         );
 }
 
+export function boldedLog(logs: boldedLog | boldedLog[]) {
+    if (!TEST) {
+        const arrayedLogs = Array.isArray(logs) ? logs : [logs];
+        logging.log('----------------------------------------');
+        arrayedLogs.forEach((log) => {
+            switch (log.logType) {
+                case 'log':
+                    logging.log(log.message);
+                    break;
+                case 'info':
+                    logging.info(log.message);
+                    break;
+                case 'warn':
+                    logging.warn(log.message);
+                    break;
+                case 'error':
+                    logging.error(log.message);
+                    break;
+                default:
+                    logging.log(log.message);
+                    break;
+            }
+        });
+        logging.log('----------------------------------------');
+    }
+}
+
 const logging = {
     log,
     info,
     warn,
     error,
     warning: warn,
-    getCallingFunction
+    getCallingFunction,
+    boldedLog
 };
 
 /** Create the global definition */
@@ -120,6 +150,7 @@ declare global {
         warning: (message?: any, ...optionalParams: any[]) => void;
         error: (message?: any, ...optionalParams: any[]) => void;
         getCallingFunction: (error: Error) => string;
+        boldedLog: (logs: { message: any; logType: 'log' | 'info' | 'warn' | 'error' }[]) => void;
     };
 }
 

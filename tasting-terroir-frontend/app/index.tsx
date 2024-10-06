@@ -6,10 +6,13 @@ export default function Index() {
   const [data, setData] = useState("noder");
 
   const getData = async () => {
-    fetch("http://localhost:2904/main/healthcheck")
+    fetch(
+      "http://localhost:2904/testableController/get/67029cd249e0573185b16d2a"
+    )
       .then((response) => response.json())
       .then((json) => {
-        setData(json.maxsays);
+        console.log(json);
+        setData(json.text);
       })
       .catch((error) => {
         console.error(error);

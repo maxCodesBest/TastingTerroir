@@ -9,42 +9,45 @@ import { routeNotFound } from './middleware/routeNotFound';
 
 import MainController from './controllers/main';
 import { defineRoutes } from './modules/routes';
-import { SERVER } from './config/config';
+import { MONGO, SERVER } from './config/config';
+import mongoose from 'mongoose';
+import { declareHandler } from './middleware/declareHandler';
+import testableController from './controllers/testableModels';
 
 export const application = express();
 export let server: ReturnType<typeof http.createServer>;
 
-export const Main = () => {
-    logging.log('----------------------------------------');
-    logging.log('Initializing API');
-    logging.log('----------------------------------------');
+export const Main = async () => {
+    logging.boldedLog([{ message: 'Initializing API', logType: 'log' }]);
     application.use(express.urlencoded({ extended: true }));
     application.use(express.json());
 
-    logging.log('----------------------------------------');
-    logging.log('Logging & Configuration');
-    logging.log('----------------------------------------');
+    logging.boldedLog([{ message: 'Connecting to MongoDB', logType: 'log' }]);
+    try {
+        const connection = await mongoose.connect(MONGO.MONGO_CONNECTION, MONGO.MONGO_OPTIONS);
+        logging.boldedLog([{ message: `Connected to Mongo: ${connection.version}`, logType: 'log' }]);
+    } catch (error) {
+        logging.boldedLog([
+            { message: 'Unable to connect to Mongo', logType: 'log' },
+            { message: error, logType: 'error' }
+        ]);
+    }
+
+    logging.boldedLog([{ message: 'Logging & Configuration', logType: 'log' }]);
+    application.use(declareHandler);
     application.use(loggingHandler);
     application.use(corsHandler);
 
-    logging.log('----------------------------------------');
-    logging.log('Define Controller Routing');
-    logging.log('----------------------------------------');
-    defineRoutes([MainController], application);
+    logging.boldedLog([{ message: 'Define Controller Routing', logType: 'log' }]);
+    defineRoutes([MainController, testableController], application);
 
-    logging.log('----------------------------------------');
-    logging.log('Define Routing Error');
-    logging.log('----------------------------------------');
+    logging.boldedLog([{ message: 'Define Routing Error', logType: 'log' }]);
     application.use(routeNotFound);
 
-    logging.log('----------------------------------------');
-    logging.log('Starting Server');
-    logging.log('----------------------------------------');
+    logging.boldedLog([{ message: 'Starting Server', logType: 'log' }]);
     server = http.createServer(application);
     server.listen(SERVER.SERVER_PORT, () => {
-        logging.log('----------------------------------------');
-        logging.log(`Server started on ${JSON.stringify(server.address())}`);
-        logging.log('----------------------------------------');
+        logging.boldedLog([{ message: `Server started on ${JSON.stringify(server.address())}`, logType: 'log' }]);
     });
 };
 
