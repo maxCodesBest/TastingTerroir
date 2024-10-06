@@ -9,19 +9,13 @@ const postHealthCheckValidation = Joi.object({
     email: Joi.string().email()
 });
 
-@Controller('/main')
-class MainController {
-    @Route('get', '/healthcheck')
+@Controller('/healthcheck')
+class HealthcheckController {
+    @Route('get', '/')
     getHealthCheck(req: Request, res: Response, next: NextFunction) {
         logging.info('Get Healthcheck route called successfully!');
         return res.status(200).json({ maxsays: 'Hello World!' });
     }
-    @Route('post', '/healthcheck')
-    @Validate(postHealthCheckValidation)
-    postHealthCheck(req: Request, res: Response, next: NextFunction) {
-        logging.info('Post Healthcheck route called successfully!');
-        return res.status(200).json({ ...req.body });
-    }
 }
 
-export default MainController;
+export default HealthcheckController;

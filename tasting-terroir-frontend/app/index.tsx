@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { PaperProvider, Button } from "react-native-paper";
 
 export default function Index() {
+  //TODO - this entire file is gonna be deleted and re-written in the next task so no need to clean it
   const [data, setData] = useState("noder");
 
   const getData = async () => {

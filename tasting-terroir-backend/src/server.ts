@@ -2,17 +2,14 @@ import http from 'http';
 import express from 'express';
 import './config/logging';
 import 'reflect-metadata';
-
 import { corsHandler } from './middleware/corsHandler';
 import { loggingHandler } from './middleware/loggingHandler';
 import { routeNotFound } from './middleware/routeNotFound';
-
-import MainController from './controllers/main';
+import HealthcheckController from './controllers/healthcheck';
 import { defineRoutes } from './modules/routes';
 import { MONGO, SERVER } from './config/config';
 import mongoose from 'mongoose';
 import { declareHandler } from './middleware/declareHandler';
-import testableController from './controllers/testableModels';
 
 export const application = express();
 export let server: ReturnType<typeof http.createServer>;
@@ -39,7 +36,7 @@ export const Main = async () => {
     application.use(corsHandler);
 
     logging.boldedLog([{ message: 'Define Controller Routing', logType: 'log' }]);
-    defineRoutes([MainController, testableController], application);
+    defineRoutes([HealthcheckController], application);
 
     logging.boldedLog([{ message: 'Define Routing Error', logType: 'log' }]);
     application.use(routeNotFound);
