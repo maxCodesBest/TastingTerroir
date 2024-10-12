@@ -1,28 +1,9 @@
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, View, Pressable, Text } from "react-native";
 import { PaperProvider, Button } from "react-native-paper";
+import { useRouter } from "expo-router";
 
 export default function Index() {
-  //TODO - this entire file is gonna be deleted and re-written in the next task so no need to clean it
-  const [data, setData] = useState("noder");
-
-  const getData = async () => {
-    fetch(
-      "http://localhost:2904/testableController/get/67029cd249e0573185b16d2a"
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        setData(json.text);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const router = useRouter();
 
   return (
     <PaperProvider>
@@ -34,13 +15,34 @@ export default function Index() {
         }}
       >
         <Button
-          icon="heart"
+          style={styles.mainButtons}
+          icon="glass-wine"
           mode="elevated"
-          onPress={() => console.log("Pressed")}
+          onPress={() => router.push("/newTastingNote")}
         >
-          {data}
+          Add a new tasting note
+        </Button>
+        <Button
+          style={styles.mainButtons}
+          icon="bottle-wine"
+          mode="elevated"
+          onPress={() => router.push("/collections")}
+        >
+          collections
+        </Button>
+        <Button
+          style={styles.mainButtons}
+          icon="information"
+          mode="elevated"
+          onPress={() => router.push("/generalInformation")}
+        >
+          General information
         </Button>
       </View>
     </PaperProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  mainButtons: { marginTop: 40 },
+});

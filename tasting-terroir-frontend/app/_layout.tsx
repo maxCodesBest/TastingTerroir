@@ -1,13 +1,18 @@
+import BackButton from "@/components/backButton";
 import { Stack } from "expo-router";
+import { View } from "react-native";
 
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="index" />
-    </Stack>
+    <>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+      </Stack>
+      <BackButton />
+    </>
   );
 }
