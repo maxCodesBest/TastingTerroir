@@ -1,10 +1,10 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { PaperProvider, Button } from "react-native-paper";
 import { useRouter } from "expo-router";
+import MainButton from "@/components/mainButton";
 
 export default function Index() {
   const router = useRouter();
-
   return (
     <PaperProvider>
       <View
@@ -14,35 +14,22 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <Button
-          style={styles.mainButtons}
+        <MainButton
+          rerouthPath="/screens/newTastingNote"
+          text="Add a new tasting note"
           icon="glass-wine"
-          mode="elevated"
-          onPress={() => router.push("/newTastingNote")}
-        >
-          Add a new tasting note
-        </Button>
-        <Button
-          style={styles.mainButtons}
+        />
+        <MainButton
+          rerouthPath="/screens/collections"
+          text="Collections"
           icon="bottle-wine"
-          mode="elevated"
-          onPress={() => router.push("/collections")}
-        >
-          collections
-        </Button>
-        <Button
-          style={styles.mainButtons}
+        />
+        <MainButton
+          rerouthPath="/screens/generalInformation"
+          text="General information"
           icon="information"
-          mode="elevated"
-          onPress={() => router.push("/generalInformation")}
-        >
-          General information
-        </Button>
+        />
       </View>
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  mainButtons: { marginTop: 40 },
-});

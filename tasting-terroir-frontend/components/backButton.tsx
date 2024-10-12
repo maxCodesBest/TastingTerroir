@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Button, Icon } from "react-native-paper";
-import { useFocusEffect, useNavigation, useRouter } from "expo-router";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useState } from "react";
 import { useRouteInfo } from "expo-router/build/hooks";
 
 export default function BackButton() {
@@ -23,7 +23,6 @@ export default function BackButton() {
         }}
       >
         <Button
-          style={{}}
           compact={true}
           onPress={() =>
             router.canGoBack() ? router.push("/") : router.push("/")
