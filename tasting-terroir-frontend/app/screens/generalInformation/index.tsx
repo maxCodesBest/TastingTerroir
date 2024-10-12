@@ -1,7 +1,6 @@
-import BackButton from "@/components/backButton";
 import { View, Text } from "react-native";
 
-export default function AddNewTastingNote() {
+export default function GeneralInformation() {
   return (
     <View
       style={{
@@ -10,7 +9,7 @@ export default function AddNewTastingNote() {
         alignItems: "center",
       }}
     >
-      <Text>newtastingnote</Text>
+      <Text>generalinformation</Text>
     </View>
   );
 }

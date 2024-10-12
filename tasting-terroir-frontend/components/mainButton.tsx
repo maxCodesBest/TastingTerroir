@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-import { Href, useRouter } from "expo-router";
+import { Href, RouteParamInput, Routes, useRouter } from "expo-router";
 
 export default function MainButton(props: {
   rerouthPath: Href<string | Object>;
   text: string;
   icon?: string;
+  params?: Partial<RouteParamInput<Routes>>;
 }) {
   const router = useRouter();
 
@@ -14,7 +15,12 @@ export default function MainButton(props: {
       style={styles.mainButtons}
       icon={props.icon}
       mode="elevated"
-      onPress={() => router.push(props.rerouthPath)}
+      onPress={() => {
+        router.push(props.rerouthPath);
+        if (props.params) {
+          router.setParams(props.params);
+        }
+      }}
     >
       {props.text}
     </Button>

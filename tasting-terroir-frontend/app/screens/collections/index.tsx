@@ -1,7 +1,6 @@
-import BackButton from "@/components/backButton";
 import { View, Text } from "react-native";
 
-export default function GeneralInformation() {
+export default function Collections() {
   return (
     <View
       style={{
@@ -10,7 +9,7 @@ export default function GeneralInformation() {
         alignItems: "center",
       }}
     >
-      <Text>generalinformation</Text>
+      <Text>collections</Text>
     </View>
   );
 }

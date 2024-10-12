@@ -25,7 +25,7 @@ export default function BackButton() {
         <Button
           compact={true}
           onPress={() =>
-            router.canGoBack() ? router.push("/") : router.push("/")
+            router.canGoBack() ? router.back() : router.push("/")
           }
         >
           <Icon source={"chevron-left"} size={25}></Icon>
