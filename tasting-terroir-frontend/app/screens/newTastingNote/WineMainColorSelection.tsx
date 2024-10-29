@@ -1,10 +1,10 @@
 import { View } from "react-native";
 import MainButton from "@/components/mainButton";
-import { wineColors } from "@/general/generalTypes";
 import { useLocalSearchParams } from "expo-router";
 import { Href } from "expo-router";
+import { wineMainColors } from "@/types/tastingNoteTypes";
 
-export default function WineColor() {
+export default function WineMainColorSelection() {
   const path: Href<string | Object> =
     "/screens/newTastingNote/newTastingNoteForm";
   const data = useLocalSearchParams();
@@ -20,22 +20,22 @@ export default function WineColor() {
       <MainButton
         rerouthPath={path}
         text="White"
-        params={{ color: wineColors.white, ...data }}
+        params={{ color: wineMainColors.white, ...data }}
       />
       <MainButton
         rerouthPath={path}
         text="Red"
-        params={{ color: wineColors.red, ...data }}
+        params={{ color: wineMainColors.red, ...data }}
       />
       <MainButton
         rerouthPath={path}
         text="Rose"
-        params={{ color: wineColors.rose, ...data }}
+        params={{ color: wineMainColors.rose, ...data }}
       />
       <MainButton
         rerouthPath={path}
         text="Orange"
-        params={{ color: wineColors.orange, ...data }}
+        params={{ color: wineMainColors.orange, ...data }}
       />
     </View>
   );

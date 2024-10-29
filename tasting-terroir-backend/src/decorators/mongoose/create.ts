@@ -17,7 +17,6 @@ export function MongoCreate(model: Model<any>) {
                 req.mongoCreate = document;
             } catch (error) {
                 logging.error(error);
-
                 return res.status(400).json(error);
             }
 

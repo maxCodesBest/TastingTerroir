@@ -11,7 +11,7 @@ export default function AddNewTastingNote() {
       }}
     >
       <MainButton
-        rerouthPath="/screens/newTastingNote/wineType"
+        rerouthPath="/screens/newTastingNote/wineTypeSelection"
         text="Create a new Tasting Note"
       />
       <MainButton
