@@ -1,3 +1,5 @@
+//TODO find a more useful way to have this data written
+
 export enum wineTypes {
   regular = "Regular",
   sparkling = "Sparkling",
