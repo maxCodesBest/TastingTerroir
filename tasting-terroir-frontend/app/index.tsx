@@ -1,9 +1,7 @@
 import { View } from "react-native";
-import { useRouter } from "expo-router";
 import MainButton from "@/components/mainButton";
 
 export default function Index() {
-  const router = useRouter();
   return (
     <View
       style={{

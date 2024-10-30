@@ -9,7 +9,7 @@ export default function Collections() {
         alignItems: "center",
       }}
     >
-      <Text>collections</Text>
+      <Text>You Don't have any collection yet :(</Text>
     </View>
   );
 }
