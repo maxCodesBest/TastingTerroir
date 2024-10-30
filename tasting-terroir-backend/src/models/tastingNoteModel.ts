@@ -29,6 +29,6 @@ const TastingNote = {
     }
 };
 
-export const tastingNoteSchema = new Schema(TastingNote, { timestamps: true });
+const tastingNoteSchema = new Schema(TastingNote, { timestamps: true });
 
 export const TastingNoteModel = mongoose.model('tastingNoteModel', tastingNoteSchema);
