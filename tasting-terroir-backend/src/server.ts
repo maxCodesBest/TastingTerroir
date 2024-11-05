@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
 import { declareHandler } from './middleware/declareHandler';
 import TastingNotesController from './controllers/tastingNoteController';
 import GeneralInfoController from './controllers/generalInfoController';
+import AuthController from './controllers/authController';
 
 export const application = express();
 export let server: ReturnType<typeof http.createServer>;
@@ -38,7 +39,7 @@ export const Main = async () => {
     application.use(corsHandler);
 
     logging.boldedLog([{ message: 'Define Controller Routing', logType: 'log' }]);
-    defineRoutes([HealthcheckController, TastingNotesController, GeneralInfoController], application);
+    defineRoutes([HealthcheckController, TastingNotesController, GeneralInfoController, AuthController], application);
 
     logging.boldedLog([{ message: 'Define Routing Error', logType: 'log' }]);
     application.use(routeNotFound);

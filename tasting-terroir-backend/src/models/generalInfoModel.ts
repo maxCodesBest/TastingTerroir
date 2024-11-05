@@ -8,4 +8,4 @@ const GeneralInfo = {
 
 const generalInfoSchema = new Schema(GeneralInfo, { timestamps: true });
 
-export const GeneralInfoModel = mongoose.model('generalInfoModel', generalInfoSchema);
+export const GeneralInfoModel = mongoose.model('generalInfo', generalInfoSchema);
