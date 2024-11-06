@@ -25,6 +25,7 @@ export default function Index() {
         text="General information"
         icon="information"
       />
+      <MainButton rerouthPath="/screens/auth" text="Auth" />
     </View>
   );
 }

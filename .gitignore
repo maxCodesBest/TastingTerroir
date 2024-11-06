@@ -1,5 +1,8 @@
 **/node_modules
 **/.env
 **/.expo-env.d.ts
+**/.expo
+.expo
 .expo-env.d.ts
 .env
+node_modules

@@ -61,8 +61,8 @@ export default function NewTastingNoteForm() {
   const [tastingNote, setTastingNote] = useState<TastingNote>(initalNote);
   const submitHandler = async () => {
     await createTastingNote(tastingNote);
-    // if (router.canDismiss()) router.dismissAll();
-    // router.back();
+    if (router.canDismiss()) router.dismissAll();
+    router.back();
   };
 
   //TODO make this into smaller smarter components instead of hardcoded messy shit
