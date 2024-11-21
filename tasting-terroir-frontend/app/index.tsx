@@ -11,20 +11,21 @@ export default function Index() {
       }}
     >
       <MainButton
-        rerouthPath="/screens/newTastingNote"
+        rerouthPath="/newTastingNote"
         text="Add a new tasting note"
         icon="glass-wine"
       />
       <MainButton
-        rerouthPath="/screens/collections"
+        rerouthPath="/collections"
         text="Collections"
         icon="bottle-wine"
       />
       <MainButton
-        rerouthPath="/screens/generalInformation"
+        rerouthPath="/generalInformation"
         text="General information"
         icon="information"
       />
+      <MainButton rerouthPath="/auth" text="Auth" />
     </View>
   );
 }

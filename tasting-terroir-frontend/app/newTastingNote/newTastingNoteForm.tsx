@@ -1,5 +1,3 @@
-import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -10,7 +8,6 @@ import {
   Button,
   TextInput,
 } from "react-native-paper";
-import TastingNote from "@/objects/TastingNote";
 import {
   Clarity,
   ColorIntensity,
@@ -21,7 +18,6 @@ import {
   OrangeColorPalate,
   RoseColorPalate,
   wineMainColors,
-  wineTypes,
   Condition,
   AromaIntensity,
   Development,
@@ -34,8 +30,9 @@ import {
 } from "@/types/tastingNoteTypes";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { createTastingNote } from "@/services/tastingNoteServices";
+import useTastingNotesStore from "@/stores/TastingNote";
 
-function getSpecificColorPalate(color: wineMainColors) {
+function getSpecificColorPalate(color: wineMainColors | undefined) {
   switch (color) {
     case wineMainColors.white:
       return enumToArray(WhiteColorPalate);
@@ -52,17 +49,12 @@ function getSpecificColorPalate(color: wineMainColors) {
 }
 
 export default function NewTastingNoteForm() {
-  const data = useLocalSearchParams(); //TODO - pass the type and color in a better way, maybe Redux?
-  const initalNote = new TastingNote(
-    data.wineType as wineTypes,
-    data.color as wineMainColors
-  );
+  const note = useTastingNotesStore();
   const router = useRouter();
-  const [tastingNote, setTastingNote] = useState<TastingNote>(initalNote);
   const submitHandler = async () => {
-    await createTastingNote(tastingNote);
-    // if (router.canDismiss()) router.dismissAll();
-    // router.back();
+    await createTastingNote(note);
+    if (router.canDismiss()) router.dismissAll();
+    router.push("/");
   };
 
   //TODO make this into smaller smarter components instead of hardcoded messy shit
@@ -83,13 +75,13 @@ export default function NewTastingNoteForm() {
               label="Clarity"
               placeholder="Select Clarity"
               options={enumToArray(Clarity)}
-              value={tastingNote.appearance.clarity}
+              value={note.appearance.clarity}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     appearance: {
-                      ...tastingNote.appearance,
+                      ...note.appearance,
                       clarity: selection as Clarity,
                     },
                   });
@@ -100,13 +92,13 @@ export default function NewTastingNoteForm() {
               label="Intensity"
               placeholder="Select Intensity"
               options={enumToArray(ColorIntensity)}
-              value={tastingNote.appearance.colorIntensity}
+              value={note.appearance.colorIntensity}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     appearance: {
-                      ...tastingNote.appearance,
+                      ...note.appearance,
                       colorIntensity: selection as ColorIntensity,
                     },
                   });
@@ -116,14 +108,14 @@ export default function NewTastingNoteForm() {
             <Dropdown
               label="Color"
               placeholder="Select Color"
-              options={getSpecificColorPalate(tastingNote.general.color)}
-              value={tastingNote.appearance.color}
+              options={getSpecificColorPalate(note.general.color)}
+              value={note.appearance.color}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     appearance: {
-                      ...tastingNote.appearance,
+                      ...note.appearance,
                       color: selection as ColorPalate,
                     },
                   });
@@ -137,13 +129,13 @@ export default function NewTastingNoteForm() {
               label="Condition"
               placeholder="Select Condition"
               options={enumToArray(Condition)}
-              value={tastingNote.nose.condition}
+              value={note.nose.condition}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     nose: {
-                      ...tastingNote.nose,
+                      ...note.nose,
                       condition: selection as Condition,
                     },
                   });
@@ -154,13 +146,13 @@ export default function NewTastingNoteForm() {
               label="Aroma Intensity"
               placeholder="Select Aroma Intensity"
               options={enumToArray(AromaIntensity)}
-              value={tastingNote.nose.intensity}
+              value={note.nose.intensity}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     nose: {
-                      ...tastingNote.nose,
+                      ...note.nose,
                       intensity: selection as AromaIntensity,
                     },
                   });
@@ -170,12 +162,12 @@ export default function NewTastingNoteForm() {
             <TextInput
               label="Aroma Characteristics"
               placeholder="Aroma Characteristics"
-              value={tastingNote.nose.characteristics}
+              value={note.nose.characteristics}
               multiline={true}
               onChangeText={(text) =>
-                setTastingNote({
-                  ...tastingNote,
-                  nose: { ...tastingNote.nose, characteristics: text },
+                note.updateNote({
+                  ...note,
+                  nose: { ...note.nose, characteristics: text },
                 })
               }
             />
@@ -183,13 +175,13 @@ export default function NewTastingNoteForm() {
               label="Development"
               placeholder="Select Development"
               options={enumToArray(Development)}
-              value={tastingNote.nose.development}
+              value={note.nose.development}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     nose: {
-                      ...tastingNote.nose,
+                      ...note.nose,
                       development: selection as Development,
                     },
                   });
@@ -203,13 +195,13 @@ export default function NewTastingNoteForm() {
               label="Sweetness"
               placeholder="Select Sweetness"
               options={enumToArray(Sweetness)}
-              value={tastingNote.palate.sweetness}
+              value={note.palate.sweetness}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
-                      ...tastingNote.palate,
+                      ...note.palate,
                       sweetness: selection as Sweetness,
                     },
                   });
@@ -220,31 +212,31 @@ export default function NewTastingNoteForm() {
               label="Acidity"
               placeholder="Select Acidity"
               options={enumToArray(Generic)}
-              value={tastingNote.palate.acidity}
+              value={note.palate.acidity}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
-                      ...tastingNote.palate,
+                      ...note.palate,
                       acidity: selection as Generic,
                     },
                   });
                 }
               }}
             />
-            {tastingNote.general.color != wineMainColors.white && (
+            {note.general.color != wineMainColors.white && (
               <Dropdown
                 label="Tannins"
                 placeholder="Select Tannins"
                 options={enumToArray(Generic)}
-                value={tastingNote.palate.tannins}
+                value={note.palate.tannins}
                 onSelect={(selection) => {
                   if (selection) {
-                    setTastingNote({
-                      ...tastingNote,
+                    note.updateNote({
+                      ...note,
                       palate: {
-                        ...tastingNote.palate,
+                        ...note.palate,
                         tannins: selection as Generic,
                       },
                     });
@@ -256,13 +248,13 @@ export default function NewTastingNoteForm() {
               label="Alcohol"
               placeholder="Select Alcohol"
               options={enumToArray(Generic)}
-              value={tastingNote.palate.alcohol}
+              value={note.palate.alcohol}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
-                      ...tastingNote.palate,
+                      ...note.palate,
                       alcohol: selection as Generic,
                     },
                   });
@@ -273,13 +265,13 @@ export default function NewTastingNoteForm() {
               label="Body"
               placeholder="Select Body"
               options={enumToArray(Body)}
-              value={tastingNote.palate.body}
+              value={note.palate.body}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
-                      ...tastingNote.palate,
+                      ...note.palate,
                       body: selection as Body,
                     },
                   });
@@ -290,13 +282,13 @@ export default function NewTastingNoteForm() {
               label="Flavor Intensity"
               placeholder="Select Flavor Intensity"
               options={enumToArray(AromaIntensity)}
-              value={tastingNote.palate.intensity}
+              value={note.palate.intensity}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
-                      ...tastingNote.palate,
+                      ...note.palate,
                       intensity: selection as AromaIntensity,
                     },
                   });
@@ -306,12 +298,12 @@ export default function NewTastingNoteForm() {
             <TextInput
               label="Flavor Characteristics"
               placeholder="Flavor Characteristics"
-              value={tastingNote.palate.characteristics}
+              value={note.palate.characteristics}
               multiline={true}
               onChangeText={(text) =>
-                setTastingNote({
-                  ...tastingNote,
-                  palate: { ...tastingNote.palate, characteristics: text },
+                note.updateNote({
+                  ...note,
+                  palate: { ...note.palate, characteristics: text },
                 })
               }
             />
@@ -319,14 +311,14 @@ export default function NewTastingNoteForm() {
               label="Finish"
               placeholder="Select Finish"
               options={enumToArray(Finish)}
-              value={tastingNote.palate.finish}
+              value={note.palate.finish}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     palate: {
                       finish: selection as Finish,
-                      ...tastingNote.palate,
+                      ...note.palate,
                     },
                   });
                 }
@@ -339,13 +331,13 @@ export default function NewTastingNoteForm() {
               label="Quality Level"
               placeholder="Select Quality Level"
               options={enumToArray(QualityLevel)}
-              value={tastingNote.conclusion.qualityLevel}
+              value={note.conclusion.qualityLevel}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     conclusion: {
-                      ...tastingNote.nose,
+                      ...note.nose,
                       qualityLevel: selection as QualityLevel,
                     },
                   });
@@ -356,13 +348,13 @@ export default function NewTastingNoteForm() {
               label="Readiness Level"
               placeholder="Select Readiness Level"
               options={enumToArray(ReadinessLevel)}
-              value={tastingNote.conclusion.readinessLevel}
+              value={note.conclusion.readinessLevel}
               onSelect={(selection) => {
                 if (selection) {
-                  setTastingNote({
-                    ...tastingNote,
+                  note.updateNote({
+                    ...note,
                     conclusion: {
-                      ...tastingNote.nose,
+                      ...note.nose,
                       readinessLevel: selection as ReadinessLevel,
                     },
                   });

@@ -1,6 +1,6 @@
-import TastingNote from "@/objects/TastingNote";
+import { ITastingNote } from "@/interfaces/ITastingNote";
 
-export async function createTastingNote(newNote: TastingNote): Promise<void> {
+export async function createTastingNote(newNote: ITastingNote): Promise<void> {
   fetch("http://localhost:2904/tastingNotes/create", {
     method: "POST",
     headers: {

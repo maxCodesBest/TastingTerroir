@@ -15,20 +15,20 @@ import {
   Body,
 } from "@/types/tastingNoteTypes";
 
-export default class TastingNote {
-  general!: { wineType: wineTypes; color: wineMainColors };
-  appearance!: {
+export interface ITastingNote {
+  general: { wineType?: wineTypes; color?: wineMainColors };
+  appearance: {
     clarity?: Clarity;
     colorIntensity?: ColorIntensity;
     color?: ColorPalate;
   };
-  nose!: {
+  nose: {
     condition?: Condition;
     intensity?: AromaIntensity;
     characteristics?: string;
     development?: Development;
   };
-  palate!: {
+  palate: {
     sweetness?: Sweetness;
     acidity?: Generic;
     tannins?: Generic;
@@ -38,16 +38,8 @@ export default class TastingNote {
     characteristics?: string;
     finish?: Finish;
   };
-  conclusion!: {
+  conclusion: {
     qualityLevel?: QualityLevel;
     readinessLevel?: ReadinessLevel;
   };
-
-  constructor(wineType: wineTypes, color: wineMainColors) {
-    this.general = { wineType, color };
-    this.appearance = {};
-    this.nose = {};
-    this.palate = {};
-    this.conclusion = {};
-  }
 }

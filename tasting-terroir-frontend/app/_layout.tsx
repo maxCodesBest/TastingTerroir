@@ -1,6 +1,5 @@
-import BackButton from "@/components/backButton";
 import { Stack } from "expo-router";
-import { View } from "react-native";
+import BackButton from "@/components/backButton";
 
 export default function RootLayout() {
   return (

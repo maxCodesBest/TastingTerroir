@@ -11,13 +11,10 @@ export default function AddNewTastingNote() {
       }}
     >
       <MainButton
-        rerouthPath="/screens/newTastingNote/wineTypeSelection"
+        rerouthPath="/newTastingNote/wineTypeSelection"
         text="Create a new Tasting Note"
       />
-      <MainButton
-        rerouthPath="/screens/newTastingNote"
-        text="Resume a Tasting Note"
-      />
+      <MainButton rerouthPath="/newTastingNote" text="Resume a Tasting Note" />
     </View>
   );
 }
