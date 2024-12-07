@@ -12,7 +12,6 @@ export default function MainButton(props: {
   // one day come back to change this funny hack/workaround, maybe new versions already fixed the problem with buttons for you at this point
   return (
     <Link
-      style={styles.mainButtons}
       href={props.rerouthPath}
       onPress={() => {
         if (props.callback) {
@@ -29,5 +28,11 @@ export default function MainButton(props: {
 }
 
 const styles = StyleSheet.create({
-  mainButtons: { marginTop: 40 },
+  mainButtons: {
+    marginTop: 40,
+    height: 150,
+    width: "80%",
+    justifyContent: "center",
+    flexShrink: 1,
+  },
 });

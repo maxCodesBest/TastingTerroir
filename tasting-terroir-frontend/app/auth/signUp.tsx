@@ -40,6 +40,9 @@ export default function SignUpForm() {
         <View style={{ width: "100%" }}>
           <Text variant="headlineLarge">SIGN UP</Text>
           <TextInput
+            style={{
+              marginTop: 50,
+            }}
             label="Email"
             placeholder="Email"
             value={user?.email}
@@ -49,6 +52,10 @@ export default function SignUpForm() {
           />
           {/* TODO - implement email validation */}
           <TextInput
+            style={{
+              marginTop: 50,
+              marginBottom: 50,
+            }}
             label="Password"
             placeholder="Password"
             secureTextEntry={true}

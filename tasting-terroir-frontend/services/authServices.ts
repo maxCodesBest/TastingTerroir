@@ -75,8 +75,6 @@ export async function tokenValidation(tokenKey: string): Promise<boolean> {
     }))
     .then(async (response) => {
       if (response.status == 200) {
-        console.log("token validated successfully");
-        console.log("validation got back - ", response.body);
         return true;
       } else {
         console.error("res body is - ", response.body);
