@@ -6,7 +6,7 @@ import { wineMainColors } from "@/types/tastingNoteTypes";
 import useTastingNotesStore from "@/stores/TastingNote";
 
 export default function WineMainColorSelection() {
-  const path: Href = "/newTastingNote/newTastingNoteForm";
+  const path: Href = "/newTastingNote/apperanceForm";
   const note = useTastingNotesStore();
 
   return (

@@ -32,14 +32,19 @@ export default function LogInForm() {
         style={{
           flex: 1,
           alignItems: "center",
-
           padding: 50,
           paddingTop: 75,
         }}
       >
         <View style={{ width: "100%" }}>
-          <Text variant="headlineLarge">SIGN IN</Text>
+          <Text style={{ alignSelf: "center" }} variant="headlineLarge">
+            SIGN IN
+          </Text>
+
           <TextInput
+            style={{
+              marginTop: 50,
+            }}
             label="Email"
             placeholder="Email"
             value={user?.email}
@@ -49,6 +54,10 @@ export default function LogInForm() {
           />
           {/* TODO - implement email validation */}
           <TextInput
+            style={{
+              marginTop: 50,
+              marginBottom: 50,
+            }}
             label="Password"
             placeholder="Password"
             secureTextEntry={true}
