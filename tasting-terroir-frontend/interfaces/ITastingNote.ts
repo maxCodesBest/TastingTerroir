@@ -16,6 +16,7 @@ import {
 } from "@/types/tastingNoteTypes";
 
 export interface ITastingNote {
+  userId?: string; //TODO - this is actually not optionable but it was a pain in the ass to make it mandatory so i should come back to this later and improve it
   general: { wineType?: wineTypes; color?: wineMainColors };
   appearance: {
     clarity?: Clarity;

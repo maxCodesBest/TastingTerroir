@@ -32,6 +32,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { createTastingNote } from "@/services/tastingNoteServices";
 import useTastingNotesStore from "@/stores/TastingNote";
 import useUserStore from "@/stores/user";
+import { ITastingNote } from "@/interfaces/ITastingNote";
 
 function getSpecificColorPalate(color: wineMainColors | undefined) {
   switch (color) {
@@ -53,8 +54,10 @@ export default function NewTastingNoteForm() {
   const note = useTastingNotesStore();
   const userStore = useUserStore();
   const router = useRouter();
+
   const submitHandler = async () => {
-    await createTastingNote(note, userStore.tokenKey!);
+    const linkedNote: ITastingNote = { ...note, userId: userStore.tokenKey };
+    await createTastingNote(linkedNote, userStore.tokenKey!);
     if (router.canDismiss()) router.dismissAll();
     router.push("/");
   };

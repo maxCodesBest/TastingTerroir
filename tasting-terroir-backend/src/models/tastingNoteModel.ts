@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const TastingNote = {
+    userId: { type: String, required: true, index: true },
     general: { wineType: { type: String, required: true }, color: { type: String, required: true } },
     appearance: {
         clarity: { required: false, type: String },
