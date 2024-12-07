@@ -8,6 +8,7 @@ import { MongoQuery } from '../decorators/mongoose/query';
 import { MongoUpdate } from '../decorators/mongoose/update';
 import { MongoDelete } from '../decorators/mongoose/delete';
 import { TastingNoteModel } from '../models/tastingNoteModel';
+import { jwtAuth } from '../decorators/auth/jwtAuth';
 
 @Controller('/tastingNotes')
 class TastingNotesController {
@@ -24,6 +25,7 @@ class TastingNotesController {
     }
 
     @Route('post', '/create')
+    @jwtAuth()
     @MongoCreate(TastingNoteModel)
     create(req: Request, res: Response, next: NextFunction) {
         return res.status(201).json(req.mongoCreate);

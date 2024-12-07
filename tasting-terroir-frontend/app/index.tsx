@@ -25,7 +25,7 @@ export default function Index() {
         text="General information"
         icon="information"
       />
-      <MainButton rerouthPath="/auth" text="Auth" />
+      <MainButton rerouthPath="/settings/logOut" text="Log Out" />
     </View>
   );
 }

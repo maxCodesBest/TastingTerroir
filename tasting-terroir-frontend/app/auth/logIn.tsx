@@ -6,19 +6,19 @@ import {
   TextInput,
 } from "react-native-paper";
 import { useState } from "react";
-import { createNewUser } from "@/services/authServices";
+import { userLogIn } from "@/services/authServices";
 import IUser from "@/interfaces/IUser";
 import useUserStore from "@/stores/user";
 import { useRouter } from "expo-router";
 
-export default function SignUpForm() {
+export default function LogInForm() {
   const [user, setUser] = useState<IUser>({ email: "", password: "" }); //TODO - do something better than this please..
   const userStore = useUserStore();
   const router = useRouter();
 
   const submitHandler = async () => {
     if (user) {
-      const userId = await createNewUser(user);
+      const userId = await userLogIn(user);
       if (userId) {
         userStore.updateUser(userId);
         router.push("/");
@@ -38,7 +38,7 @@ export default function SignUpForm() {
         }}
       >
         <View style={{ width: "100%" }}>
-          <Text variant="headlineLarge">SIGN UP</Text>
+          <Text variant="headlineLarge">SIGN IN</Text>
           <TextInput
             label="Email"
             placeholder="Email"

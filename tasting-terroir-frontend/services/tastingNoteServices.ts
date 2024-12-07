@@ -1,10 +1,16 @@
 import { ITastingNote } from "@/interfaces/ITastingNote";
+import { getToken } from "./authServices";
 
-export async function createTastingNote(newNote: ITastingNote): Promise<void> {
+export async function createTastingNote(
+  newNote: ITastingNote,
+  tokenKey: string
+): Promise<void> {
+  const token = getToken(tokenKey);
   fetch("http://localhost:2904/tastingNotes/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: token!,
     },
     body: JSON.stringify(newNote),
   }) //TODO .env consts
@@ -12,7 +18,10 @@ export async function createTastingNote(newNote: ITastingNote): Promise<void> {
       response.status == 201
         ? console.log("new note created successfully")
         : console.error(
-            "new note WASNT created successfully, something weird happend, check it"
+            "res status is -",
+            response.status,
+            " and res body is -",
+            response.body
           )
     )
     .catch((error) => {

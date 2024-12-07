@@ -7,14 +7,14 @@ import { useRouteInfo } from "expo-router/build/hooks";
 export default function BackButton() {
   const router = useRouter();
   const route = useRouteInfo();
-  const [isHomePage, setIsHomePage] = useState(true);
+  const [isUnbackablePage, setIsUnbackablePage] = useState(true);
 
   useFocusEffect(() => {
-    setIsHomePage(route.pathname == "/");
+    setIsUnbackablePage(route.pathname == "/" || route.pathname == "/auth");
   });
 
   return (
-    !isHomePage && (
+    !isUnbackablePage && (
       <View
         style={{
           position: "absolute",

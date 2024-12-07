@@ -4,11 +4,8 @@ import { Route } from '../decorators/route';
 import { UserModel } from '../models/userModel';
 import { MongoSignUp } from '../decorators/mongoose/auth/signUp';
 import { JwtHandler } from '../handlers/jwtHandler';
-
-//TODO - right now we are working with a follow along tutorial,
-// make sure to implement later relevant decorators like "@MongoCreate(UserModel)"
-// also if it wasnt done the entire tutorial, make the auth mechanism a Guard like there was on transmit
-// so it sits easily on all controllers and also you can make different guards easilly
+import { MongoLogIn } from '../decorators/mongoose/auth/logIn';
+import { jwtAuth } from '../decorators/auth/jwtAuth';
 
 @Controller('/auth')
 class AuthController {
@@ -20,9 +17,20 @@ class AuthController {
 
         return res.status(201).json({ newUserId: userId, jwt: token });
     }
+
     @Route('post', '/login')
+    @MongoLogIn(UserModel)
     login(req: Request, res: Response, next: NextFunction) {
-        return res.status(201).json(req.mongoCreate);
+        const userId = req.mongoGet?._id as string;
+        const token = JwtHandler.createToken(userId);
+
+        return res.status(200).json({ userId: userId, jwt: token });
+    }
+
+    @Route('get', '/validateAuth')
+    @jwtAuth()
+    validateAuth(req: Request, res: Response, next: NextFunction) {
+        return res.status(200).json({ authenticated: true });
     }
 }
 

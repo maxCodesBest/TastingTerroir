@@ -10,7 +10,7 @@ export default function authScreen() {
         alignItems: "center",
       }}
     >
-      <MainButton rerouthPath="/auth/signIn" text="Sign In" />
+      <MainButton rerouthPath="/auth/logIn" text="Sign In" />
       <MainButton rerouthPath="/auth/signUp" text="Sign Up" />
     </View>
   );
