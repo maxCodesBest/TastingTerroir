@@ -13,7 +13,6 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
   conclusion: {},
   updateNote: (newNote: ITastingNote) =>
     set(() => ({
-      userId: newNote.userId,
       general: newNote.general,
       appearance: newNote.appearance,
       nose: newNote.nose,

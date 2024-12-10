@@ -1,18 +1,23 @@
 import { ITastingNote } from "@/interfaces/ITastingNote";
 import { getToken } from "./authServices";
+import { ICollectionTitles } from "@/interfaces/ICollection";
 
 export async function createTastingNote(
   newNote: ITastingNote,
-  tokenKey: string
+  tokenKey: string,
+  collectionsToEnlist?: ICollectionTitles[]
 ): Promise<void> {
   const token = getToken(tokenKey);
+  const reqBody =
+    JSON.stringify(newNote) && JSON.stringify(collectionsToEnlist);
+
   fetch("http://localhost:2904/tastingNotes/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: token!,
     },
-    body: JSON.stringify(newNote),
+    body: reqBody,
   }) //TODO .env consts
     .then((response) =>
       response.status == 201

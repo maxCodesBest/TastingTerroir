@@ -10,7 +10,7 @@ import {
 import { createTastingNote } from "@/services/tastingNoteServices";
 import useTastingNotesStore from "@/stores/TastingNote";
 import useUserStore from "@/stores/user";
-import { ITastingNote } from "@/interfaces/ITastingNote";
+import { getAllUserCollectionTitles } from "@/services/collectionServices";
 
 export default function NewTastingNoteForm() {
   const note = useTastingNotesStore();
@@ -18,8 +18,10 @@ export default function NewTastingNoteForm() {
   const router = useRouter();
 
   const submitHandler = async () => {
-    const linkedNote: ITastingNote = { ...note, userId: userStore.tokenKey };
-    await createTastingNote(linkedNote, userStore.tokenKey!);
+    const userCollections = await getAllUserCollectionTitles(
+      userStore.tokenKey!
+    );
+    await createTastingNote(note, userStore.tokenKey!, userCollections);
     if (router.canDismiss()) router.dismissAll();
     router.push("/");
   };

@@ -12,12 +12,15 @@ import useUserStore from "@/stores/user";
 import { useRouter } from "expo-router";
 
 export default function SignUpForm() {
-  const [user, setUser] = useState<IUser>({ email: "", password: "" }); //TODO - do something better than this please..
+  const [user, setUser] = useState<Partial<IUser>>();
   const userStore = useUserStore();
   const router = useRouter();
 
+  const isCompleteUser = (user: Partial<IUser>): user is IUser =>
+    user.name && user.email && user.password ? true : false;
+
   const submitHandler = async () => {
-    if (user) {
+    if (user && isCompleteUser(user)) {
       const userId = await createNewUser(user);
       if (userId) {
         userStore.updateUser(userId);
@@ -39,6 +42,17 @@ export default function SignUpForm() {
       >
         <View style={{ width: "100%" }}>
           <Text variant="headlineLarge">SIGN UP</Text>
+          <TextInput
+            style={{
+              marginTop: 50,
+            }}
+            label="Name"
+            placeholder="Name"
+            value={user?.name}
+            onChangeText={(text) => {
+              setUser({ ...user, name: text });
+            }}
+          />
           <TextInput
             style={{
               marginTop: 50,

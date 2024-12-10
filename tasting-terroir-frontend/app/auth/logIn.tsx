@@ -12,12 +12,15 @@ import useUserStore from "@/stores/user";
 import { useRouter } from "expo-router";
 
 export default function LogInForm() {
-  const [user, setUser] = useState<IUser>({ email: "", password: "" }); //TODO - do something better than this please..
+  const [user, setUser] = useState<Partial<IUser>>({ name: "" }); //name is irelevent here
   const userStore = useUserStore();
   const router = useRouter();
 
+  const isCompleteUser = (user: Partial<IUser>): user is IUser =>
+    user.name && user.email && user.password ? true : false;
+
   const submitHandler = async () => {
-    if (user) {
+    if (user && isCompleteUser(user)) {
       const userId = await userLogIn(user);
       if (userId) {
         userStore.updateUser(userId);
@@ -47,7 +50,7 @@ export default function LogInForm() {
             }}
             label="Email"
             placeholder="Email"
-            value={user?.email}
+            value={"testytest@gmail.com"} //maxsays user?.email
             onChangeText={(text) => {
               setUser({ ...user, email: text });
             }}
@@ -60,6 +63,7 @@ export default function LogInForm() {
             }}
             label="Password"
             placeholder="Password"
+            value="testypassword" //maxsays delete this
             secureTextEntry={true}
             onChangeText={(text) => setUser({ ...user, password: text })}
           />
