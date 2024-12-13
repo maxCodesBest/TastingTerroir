@@ -13,6 +13,7 @@ import { declareHandler } from './middleware/declareHandler';
 import TastingNotesController from './controllers/tastingNoteController';
 import GeneralInfoController from './controllers/generalInfoController';
 import AuthController from './controllers/authController';
+import CollectionsController from './controllers/collectionsController';
 
 export const application = express();
 export let server: ReturnType<typeof http.createServer>;
@@ -39,7 +40,7 @@ export const Main = async () => {
     application.use(corsHandler);
 
     logging.boldedLog([{ message: 'Define Controller Routing', logType: 'log' }]);
-    defineRoutes([HealthcheckController, TastingNotesController, GeneralInfoController, AuthController], application);
+    defineRoutes([HealthcheckController, TastingNotesController, GeneralInfoController, AuthController, CollectionsController], application);
 
     logging.boldedLog([{ message: 'Define Routing Error', logType: 'log' }]);
     application.use(routeNotFound);

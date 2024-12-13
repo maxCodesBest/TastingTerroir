@@ -3,6 +3,7 @@ import { create } from "zustand";
 
 interface ITastingNoteStore extends ITastingNote {
   updateNote(newNote: ITastingNote): void;
+  resetNote(): void;
 }
 
 const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
@@ -18,6 +19,14 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
       nose: newNote.nose,
       palate: newNote.palate,
       conclusion: newNote.conclusion,
+    })),
+  resetNote: () =>
+    set(() => ({
+      general: {},
+      appearance: {},
+      nose: {},
+      palate: {},
+      conclusion: {},
     })),
 }));
 

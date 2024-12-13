@@ -17,16 +17,28 @@ export default function LogInForm() {
   const router = useRouter();
 
   const isCompleteUser = (user: Partial<IUser>): user is IUser =>
-    user.name && user.email && user.password ? true : false;
+    user.email && user.password ? true : false;
 
   const submitHandler = async () => {
-    if (user && isCompleteUser(user)) {
-      const userId = await userLogIn(user);
-      if (userId) {
-        userStore.updateUser(userId);
-        router.push("/");
-      }
+    const maxsays = {
+      name: "",
+      email: "testytest@gmail.com",
+      password: "testypassword",
+    };
+    const userId = await userLogIn(maxsays);
+    if (userId) {
+      userStore.updateUser(userId);
+      router.push("/");
     }
+    //maxsays delete all of the above
+
+    // if (user && isCompleteUser(user)) {
+    //   const userId = await userLogIn(user);
+    //   if (userId) {
+    //     userStore.updateUser(userId);
+    //     router.push("/");
+    //   }
+    // }
   };
 
   return (
@@ -50,7 +62,7 @@ export default function LogInForm() {
             }}
             label="Email"
             placeholder="Email"
-            value={"testytest@gmail.com"} //maxsays user?.email
+            value={user?.email}
             onChangeText={(text) => {
               setUser({ ...user, email: text });
             }}
@@ -63,7 +75,6 @@ export default function LogInForm() {
             }}
             label="Password"
             placeholder="Password"
-            value="testypassword" //maxsays delete this
             secureTextEntry={true}
             onChangeText={(text) => setUser({ ...user, password: text })}
           />

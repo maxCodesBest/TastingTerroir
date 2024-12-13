@@ -7,9 +7,12 @@ export async function createTastingNote(
   tokenKey: string,
   collectionsToEnlist?: ICollectionTitles[]
 ): Promise<void> {
+  const collectionIds = collectionsToEnlist?.map((value) => value.id);
   const token = getToken(tokenKey);
-  const reqBody =
-    JSON.stringify(newNote) && JSON.stringify(collectionsToEnlist);
+  const reqBody = JSON.stringify({
+    note: newNote,
+    collectionsToEnlist: collectionIds,
+  });
 
   fetch("http://localhost:2904/tastingNotes/create", {
     method: "POST",

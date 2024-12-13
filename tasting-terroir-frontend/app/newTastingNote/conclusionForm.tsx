@@ -22,6 +22,7 @@ export default function NewTastingNoteForm() {
       userStore.tokenKey!
     );
     await createTastingNote(note, userStore.tokenKey!, userCollections);
+    note.resetNote();
     if (router.canDismiss()) router.dismissAll();
     router.push("/");
   };

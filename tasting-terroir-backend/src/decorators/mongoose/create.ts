@@ -7,9 +7,10 @@ export function MongoCreate(model: Model<any>) {
 
         descriptor.value = async function (req: Request, res: Response, next: NextFunction) {
             try {
+                const data = req.body.note ? req.body.note : req.body; //TODO - you cant put a specific code for a specific scenario in a generic function you use everywhere, this is a temp solution for the demo, fix later
                 const document = new model({
                     _id: new mongoose.Types.ObjectId(),
-                    ...req.body
+                    ...data
                 });
 
                 await document.save();

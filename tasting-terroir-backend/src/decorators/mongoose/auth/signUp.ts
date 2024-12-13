@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose, { Model } from 'mongoose';
+import { UserModel } from '../../../models/userModel';
+import { createNewCollection } from '../../../services/collectionService';
 
 export function MongoSignUp(model: Model<any>) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -7,9 +9,12 @@ export function MongoSignUp(model: Model<any>) {
 
         descriptor.value = async function (req: Request, res: Response, next: NextFunction) {
             try {
+                const collectionId = createNewCollection('My Notes', req.body.name);
+                const data = { ...req.body, collections: [collectionId] };
+
                 const document = new model({
                     _id: new mongoose.Types.ObjectId(),
-                    ...req.body
+                    ...data
                 });
 
                 await document.save();
