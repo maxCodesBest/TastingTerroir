@@ -15,7 +15,11 @@ import {
   Body,
 } from "@/types/tastingNoteTypes";
 
-export interface ITastingNote {
+import IBase from "./IBase";
+
+export interface ITastingNote extends IBase, INewTastingNote {}
+
+export interface INewTastingNote {
   general: { wineType?: wineTypes; color?: wineMainColors };
   appearance: {
     clarity?: Clarity;

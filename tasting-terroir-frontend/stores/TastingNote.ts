@@ -1,8 +1,8 @@
-import { ITastingNote } from "@/interfaces/ITastingNote";
+import { INewTastingNote } from "@/interfaces/ITastingNote";
 import { create } from "zustand";
 
-interface ITastingNoteStore extends ITastingNote {
-  updateNote(newNote: ITastingNote): void;
+interface ITastingNoteStore extends INewTastingNote {
+  updateNote(newNote: INewTastingNote): void;
   resetNote(): void;
 }
 
@@ -12,7 +12,7 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
   nose: {},
   palate: {},
   conclusion: {},
-  updateNote: (newNote: ITastingNote) =>
+  updateNote: (newNote: INewTastingNote) =>
     set(() => ({
       general: newNote.general,
       appearance: newNote.appearance,

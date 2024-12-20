@@ -1,17 +1,26 @@
-import { ICollection } from "@/interfaces/ICollection";
+import CollectionCard from "@/components/collections/collectionCard";
+import MainButton from "@/components/mainButton";
 import { getAllUserCollections } from "@/services/collectionServices";
 import useUserStore from "@/stores/user";
 import { useState } from "react";
 import { View, Text } from "react-native";
 
 export default function Collections() {
-  const [collections, setCollections] = useState<ICollection[]>();
+  const [collections, setCollections] = useState<React.JSX.Element[]>();
   const getCollections = async (userId: string) => {
     if (!collections) {
       //TODO - add loading machanism and loading screen etc..
       const userCollections = await getAllUserCollections(userId);
       if (userCollections) {
-        setCollections(userCollections);
+        const collectionCards = userCollections.map((collection) => {
+          return (
+            <CollectionCard
+              key={collection._id}
+              collection={collection}
+            ></CollectionCard>
+          );
+        });
+        setCollections(collectionCards);
       }
     }
   };
@@ -26,8 +35,17 @@ export default function Collections() {
         alignItems: "center",
       }}
     >
-      {!collections && <Text>You Don't have any collection yet :(</Text>}
-      {collections && <Text>You Do have collection :)</Text>}
+      {!collections && (
+        <View>
+          <Text>You Don't have any tasting notes yet :(</Text>
+          <MainButton
+            rerouthPath="/newTastingNote"
+            text="Createyour first tasting note"
+            icon="glass-wine"
+          />
+        </View>
+      )}
+      {collections && <View>{collections}</View>}
     </View>
   );
 }
