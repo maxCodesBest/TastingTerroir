@@ -5,7 +5,7 @@ export async function getAllUserCollections(
   userId: string
 ): Promise<ICollection[] | undefined> {
   const token = getToken(userId);
-  return fetch(
+  return await fetch(
     `http://localhost:2904/collections/getAllUserCollections/${userId}`,
     {
       method: "GET",

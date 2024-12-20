@@ -7,10 +7,12 @@ import { View, Text } from "react-native";
 export default function Collections() {
   const [collections, setCollections] = useState<ICollection[]>();
   const getCollections = async (userId: string) => {
-    //TODO - add loading machanism and loading screen etc..
-    const userCollections = await getAllUserCollections(userId);
-    if (userCollections) {
-      setCollections(userCollections);
+    if (!collections) {
+      //TODO - add loading machanism and loading screen etc..
+      const userCollections = await getAllUserCollections(userId);
+      if (userCollections) {
+        setCollections(userCollections);
+      }
     }
   };
   const userStore = useUserStore();

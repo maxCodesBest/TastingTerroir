@@ -26,3 +26,8 @@ export async function getCollectionTitlesByIds(ids: string[]) {
     const collectionTitles = await CollectionModel.find({ _id: { $in: ids } }, { _id: 0, id: '$_id', title: 1 });
     return collectionTitles;
 }
+
+export async function getCollectionsByIds(ids: string[]) {
+    const collections = await CollectionModel.find({ _id: { $in: ids } });
+    return collections;
+}
