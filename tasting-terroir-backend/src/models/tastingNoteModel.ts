@@ -1,6 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
 
 const TastingNote = {
+    isBlindTaste: { type: Boolean, required: true },
+    bottleInfo: {
+        name: { type: String, required: false },
+        producer: { type: String, required: false },
+        country: { type: String, required: false },
+        region: { type: String, required: false },
+        vintage: { type: Number, required: false }
+    },
     general: { wineType: { type: String, required: true }, color: { type: String, required: true } },
     appearance: {
         clarity: { required: false, type: String },

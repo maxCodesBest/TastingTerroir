@@ -19,7 +19,7 @@ import {
 } from "@/types/tastingNoteTypes";
 import useTastingNotesStore from "@/stores/TastingNote";
 
-export default function NewTastingNoteForm() {
+export default function PalateForm() {
   const note = useTastingNotesStore();
   const router = useRouter();
 

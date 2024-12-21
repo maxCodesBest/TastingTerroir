@@ -14,10 +14,9 @@ import {
   RoseColorPalate,
   wineMainColors,
 } from "@/types/tastingNoteTypes";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import useTastingNotesStore from "@/stores/TastingNote";
 
-function getSpecificColorPalate(color: wineMainColors | undefined) {
+function getSpecificColorPalate(color: wineMainColors) {
   switch (color) {
     case wineMainColors.white:
       return enumToArray(WhiteColorPalate);
@@ -28,12 +27,13 @@ function getSpecificColorPalate(color: wineMainColors | undefined) {
     case wineMainColors.rose:
       return enumToArray(RoseColorPalate);
     default:
-      console.error("no color"); //TODO - real error handler
-      return enumToArray(Colors);
+      return [];
+    // throw Error("no color");
+    // TODO - this is called when finishing a note for some unclear reason, solve it and un-comment the error
   }
 }
 
-export default function NewTastingNoteForm() {
+export default function ApperanceForm() {
   const note = useTastingNotesStore();
   const router = useRouter();
 
@@ -96,7 +96,7 @@ export default function NewTastingNoteForm() {
             <Dropdown
               label="Color"
               placeholder="Select Color"
-              options={getSpecificColorPalate(note.general.color)}
+              options={getSpecificColorPalate(note.general.color!)}
               value={note.appearance.color}
               onSelect={(selection) => {
                 if (selection) {

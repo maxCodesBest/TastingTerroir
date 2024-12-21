@@ -7,6 +7,7 @@ interface ITastingNoteStore extends INewTastingNote {
 }
 
 const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
+  bottleInfo: {},
   general: {},
   appearance: {},
   nose: {},
@@ -14,6 +15,8 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
   conclusion: {},
   updateNote: (newNote: INewTastingNote) =>
     set(() => ({
+      isBlindTaste: newNote.isBlindTaste,
+      bottleInfo: newNote.bottleInfo,
       general: newNote.general,
       appearance: newNote.appearance,
       nose: newNote.nose,
@@ -22,6 +25,8 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
     })),
   resetNote: () =>
     set(() => ({
+      isBlindTaste: undefined,
+      bottleInfo: {},
       general: {},
       appearance: {},
       nose: {},

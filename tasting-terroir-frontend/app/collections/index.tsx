@@ -11,7 +11,7 @@ export default function Collections() {
     if (!collections) {
       //TODO - add loading machanism and loading screen etc..
       const userCollections = await getAllUserCollections(userId);
-      if (userCollections) {
+      if (userCollections?.length != 0) {
         const collectionCards = userCollections.map((collection) => {
           return (
             <CollectionCard

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import MainButton from "@/components/mainButton";
 
 export default function AddNewTastingNote() {
@@ -10,11 +10,12 @@ export default function AddNewTastingNote() {
         alignItems: "center",
       }}
     >
+      <Text>Great tasting note!</Text>
+      <Text>now it's time to reveal the bottle</Text>
       <MainButton
-        rerouthPath="/newTastingNote/tastingTypeSelection"
-        text="Create a new Tasting Note"
+        rerouthPath="/newTastingNote/bottleInfoForm"
+        text="Continue"
       />
-      <MainButton rerouthPath="/newTastingNote" text="Resume a Tasting Note" />
     </View>
   );
 }

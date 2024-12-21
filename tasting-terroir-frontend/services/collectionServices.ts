@@ -3,7 +3,7 @@ import { getToken } from "./authServices";
 
 export async function getAllUserCollections(
   userId: string
-): Promise<ICollection[] | undefined> {
+): Promise<ICollection[]> {
   const token = getToken(userId);
   return await fetch(
     `http://localhost:2904/collections/getAllUserCollections/${userId}`,

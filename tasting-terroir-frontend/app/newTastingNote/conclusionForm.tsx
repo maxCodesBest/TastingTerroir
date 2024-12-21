@@ -12,19 +12,23 @@ import useTastingNotesStore from "@/stores/TastingNote";
 import useUserStore from "@/stores/user";
 import { getAllUserCollectionTitles } from "@/services/collectionServices";
 
-export default function NewTastingNoteForm() {
+export default function ConclusionForm() {
   const note = useTastingNotesStore();
   const userStore = useUserStore();
   const router = useRouter();
 
   const submitHandler = async () => {
-    const userCollections = await getAllUserCollectionTitles(
-      userStore.tokenKey!
-    );
-    await createTastingNote(note, userStore.tokenKey!, userCollections);
-    note.resetNote();
-    if (router.canDismiss()) router.dismissAll();
-    router.push("/");
+    if (note.isBlindTaste) {
+      router.push("/newTastingNote/blindTastingEnding");
+    } else {
+      const userCollections = await getAllUserCollectionTitles(
+        userStore.tokenKey!
+      );
+      await createTastingNote(note, userStore.tokenKey!, userCollections);
+      note.resetNote();
+      if (router.canDismiss()) router.dismissAll();
+      router.push("/");
+    }
   };
 
   //TODO make this into smaller smarter components instead of hardcoded messy shit
