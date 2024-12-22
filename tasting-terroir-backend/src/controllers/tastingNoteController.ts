@@ -38,6 +38,7 @@ class TastingNotesController {
     }
 
     @Route('post', '/query')
+    @jwtAuth()
     @MongoQuery(TastingNoteModel)
     query(req: Request, res: Response, next: NextFunction) {
         return res.status(200).json(req.mongoQuery);

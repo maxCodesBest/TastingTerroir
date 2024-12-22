@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Model } from 'mongoose';
-import { UserModel } from '../../../models/userModel';
 import bcrypt from 'bcrypt';
 
 export function MongoLogIn(model: Model<any>) {

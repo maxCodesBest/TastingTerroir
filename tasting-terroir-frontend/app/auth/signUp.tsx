@@ -23,7 +23,7 @@ export default function SignUpForm() {
     if (user && isCompleteUser(user)) {
       const userId = await createNewUser(user);
       if (userId) {
-        userStore.updateUser(userId);
+        userStore.updateUser(userId, user.name);
         router.push("/");
       }
     }

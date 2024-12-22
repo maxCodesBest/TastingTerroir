@@ -24,7 +24,7 @@ export default function ConclusionForm() {
       const userCollections = await getAllUserCollectionTitles(
         userStore.tokenKey!
       );
-      await createTastingNote(note, userStore.tokenKey!, userCollections);
+      await createTastingNote(note, userStore.tokenKey!, userCollections!);
       note.resetNote();
       if (router.canDismiss()) router.dismissAll();
       router.push("/");

@@ -5,9 +5,10 @@ import { ICollectionTitles } from "@/interfaces/ICollection";
 export async function createTastingNote(
   newNote: INewTastingNote,
   tokenKey: string,
-  collectionsToEnlist?: ICollectionTitles[]
+  collectionsToEnlist: ICollectionTitles[]
 ): Promise<void> {
-  const collectionIds = collectionsToEnlist?.map((value) => value.id);
+  //TODO - the right thing to do is -  "const collectionIds = collectionsToEnlist?.map((value) => value.id);" but thats in the next feature
+  const collectionIds = collectionsToEnlist[0].id;
   const token = getToken(tokenKey);
   const reqBody = JSON.stringify({
     note: newNote,

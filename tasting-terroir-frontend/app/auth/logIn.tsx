@@ -25,9 +25,9 @@ export default function LogInForm() {
       email: "testytest@gmail.com",
       password: "testypassword",
     };
-    const userId = await userLogIn(maxsays);
-    if (userId) {
-      userStore.updateUser(userId);
+    const user = await userLogIn(maxsays);
+    if (user) {
+      userStore.updateUser(user.userId, user.userName);
       router.push("/");
     }
     //maxsays delete all of the above

@@ -6,13 +6,13 @@ class jwtHandler {
         return jwt.sign({ id }, JWT_VARS.JWT_SECRET, { expiresIn: 3600 });
     }
 
+    parseToken(token: string) {
+        return jwt.decode(token);
+    }
+
     validateToken(token: string) {
         try {
-            let finalToken = token;
-            if (token.includes('bearer ')) {
-                finalToken = token.slice(7); //TODO - really? please find a better way to remove the "bearer " text...
-            }
-            jwt.verify(finalToken, JWT_VARS.JWT_SECRET);
+            jwt.verify(token, JWT_VARS.JWT_SECRET);
             return true;
         } catch (error) {
             return false;
