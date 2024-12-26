@@ -30,11 +30,13 @@ class TastingNotesController {
     @MongoCreate(TastingNoteModel)
     create(req: Request, res: Response, next: NextFunction) {
         const newNote = req.mongoCreate;
+
         if (newNote) {
             const collectionsToEnlist = req.body.collectionsToEnlist;
             addNoteToCollections(collectionsToEnlist, newNote._id as string);
         }
-        return res.status(201);
+
+        return res.status(201).send();
     }
 
     @Route('post', '/query')

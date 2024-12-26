@@ -20,22 +20,21 @@ export default function LogInForm() {
     user.email && user.password ? true : false;
 
   const submitHandler = async () => {
-    const maxsays = {
-      name: "",
-      email: "testytest@gmail.com",
-      password: "testypassword",
-    };
-    const user = await userLogIn(maxsays);
-    if (user) {
-      userStore.updateUser(user.userId, user.userName);
+    const loggedUser = await userLogIn({
+      name: "placeholder",
+      email: "placeholder",
+      password: "placeholder",
+    });
+    if (loggedUser) {
+      userStore.updateUser(loggedUser.userId, loggedUser.userName);
       router.push("/");
     }
-    //maxsays delete all of the above
 
+    //TODO - bring back the real fcking mechanism written next, and at least do the part above conditional for DEV environment
     // if (user && isCompleteUser(user)) {
-    //   const userId = await userLogIn(user);
-    //   if (userId) {
-    //     userStore.updateUser(userId);
+    //   const loggedUser = await userLogIn(user);
+    //   if (loggedUser) {
+    //     userStore.updateUser(loggedUser.userId, loggedUser.userName);
     //     router.push("/");
     //   }
     // }

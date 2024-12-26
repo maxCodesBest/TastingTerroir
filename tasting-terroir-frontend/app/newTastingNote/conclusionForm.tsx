@@ -7,27 +7,17 @@ import {
   QualityLevel,
   ReadinessLevel,
 } from "@/types/tastingNoteTypes";
-import { createTastingNote } from "@/services/tastingNoteServices";
 import useTastingNotesStore from "@/stores/TastingNote";
-import useUserStore from "@/stores/user";
-import { getAllUserCollectionTitles } from "@/services/collectionServices";
 
 export default function ConclusionForm() {
   const note = useTastingNotesStore();
-  const userStore = useUserStore();
   const router = useRouter();
 
   const submitHandler = async () => {
     if (note.isBlindTaste) {
       router.push("/newTastingNote/blindTastingEnding");
     } else {
-      const userCollections = await getAllUserCollectionTitles(
-        userStore.tokenKey!
-      );
-      await createTastingNote(note, userStore.tokenKey!, userCollections!);
-      note.resetNote();
-      if (router.canDismiss()) router.dismissAll();
-      router.push("/");
+      router.push("/newTastingNote/collectionsToEnlistSelection");
     }
   };
 
@@ -84,7 +74,7 @@ export default function ConclusionForm() {
               }}
             />
             <Button mode="elevated" onPress={submitHandler}>
-              submit
+              Continue
             </Button>
           </View>
         </View>
