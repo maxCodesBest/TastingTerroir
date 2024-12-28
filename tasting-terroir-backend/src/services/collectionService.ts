@@ -1,10 +1,17 @@
 import mongoose from 'mongoose';
 import { CollectionModel } from '../models/collectionModel';
 
-export function addNoteToCollections(collectionsToEnlist: string[], noteId: string) {
+export function addNoteToCollections(collectionsToEnlist: string[], noteId: string, profileImage?: string) {
     collectionsToEnlist.map(async (id) => {
         const document = await CollectionModel.findById(id);
         if (document) {
+            if (profileImage) {
+                if (document.profileImages.length < 4) {
+                    document.profileImages.push(profileImage);
+                } else if (!document.profileImages) {
+                    document.profileImages = [profileImage];
+                }
+            }
             document.noteIds.push(noteId);
             document.save();
         }

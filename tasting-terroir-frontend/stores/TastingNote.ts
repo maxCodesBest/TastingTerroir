@@ -1,3 +1,4 @@
+import { WinePlaceHolderImage } from "@/assets/winePlaceHolder";
 import { INewTastingNote } from "@/interfaces/ITastingNote";
 import { create } from "zustand";
 
@@ -7,7 +8,7 @@ interface ITastingNoteStore extends INewTastingNote {
 }
 
 const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
-  bottleInfo: {},
+  bottleInfo: { image: WinePlaceHolderImage },
   general: {},
   appearance: {},
   nose: {},
@@ -26,7 +27,7 @@ const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
   resetNote: () =>
     set(() => ({
       isBlindTaste: undefined,
-      bottleInfo: {},
+      bottleInfo: { image: WinePlaceHolderImage },
       general: {},
       appearance: {},
       nose: {},

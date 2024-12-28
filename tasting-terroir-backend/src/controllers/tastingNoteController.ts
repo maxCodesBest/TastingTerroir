@@ -33,7 +33,7 @@ class TastingNotesController {
 
         if (newNote) {
             const collectionsToEnlist = req.body.collectionsToEnlist;
-            addNoteToCollections(collectionsToEnlist, newNote._id as string);
+            addNoteToCollections(collectionsToEnlist, newNote._id as string, newNote.toObject().bottleInfo?.image);
         }
 
         return res.status(201).send();

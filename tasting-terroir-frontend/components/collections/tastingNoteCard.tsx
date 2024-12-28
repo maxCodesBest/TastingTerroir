@@ -1,6 +1,13 @@
-import { StyleSheet } from "react-native";
-import { Button, Card, Text } from "react-native-paper";
 import { ITastingNote } from "@/interfaces/ITastingNote";
+import { WinePlaceHolderImage } from "@/assets/winePlaceHolder";
+import { ICollection } from "@/interfaces/ICollection";
+import { useRouter } from "expo-router";
+import useCollectionStore from "@/stores/collection";
+import { View, StyleSheet, Pressable } from "react-native";
+import { Text, Card } from "@rneui/themed";
+
+const fullImageHeight = 150;
+const fullImageWidth = 150;
 
 export default function TastingNoteCard(props: { note: ITastingNote }) {
   //TODO - image should extend to entire card body size
@@ -10,18 +17,59 @@ export default function TastingNoteCard(props: { note: ITastingNote }) {
   const subtitleText = vintage ? producerName + ", " + vintage : producerName;
   const generalInfo =
     props.note.general.wineType + ", " + props.note.general.color;
+  const imageSource = props.note.bottleInfo?.image
+    ? { uri: props.note.bottleInfo?.image }
+    : require("../../assets/images/defaultWineImage.jpg");
+
+  const handleClick = () => {
+    console.log("TODO - edit page");
+  };
   return (
-    <Card style={{ height: 250, width: 250 }}>
-      <Card.Title title={wineName} subtitle={subtitleText} />
-      <Card.Content>
-        <Text variant="bodyMedium">{generalInfo}</Text>
-      </Card.Content>
-      <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
-      <Card.Actions>
-        <Button>Edit</Button>
-      </Card.Actions>
-    </Card>
+    <Pressable onPress={handleClick} style={{ alignItems: "center" }}>
+      <Card containerStyle={{ width: "100%" }}>
+        <Card.Title>{wineName}</Card.Title>
+        <Card.Divider />
+        <View
+          style={{
+            height: fullImageHeight,
+            width: fullImageWidth,
+            alignSelf: "center",
+          }}
+        >
+          <Card.Image
+            style={{
+              padding: 0,
+              height: fullImageHeight,
+              width: fullImageWidth,
+            }}
+            source={imageSource}
+          />
+        </View>
+        <Text style={styles.name}>{subtitleText}</Text>
+        <Text style={styles.name}>{generalInfo}</Text>
+      </Card>
+    </Pressable>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fonts: {
+    marginBottom: 8,
+  },
+  user: {
+    flexDirection: "row",
+    marginBottom: 6,
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  name: {
+    fontSize: 16,
+    marginTop: 5,
+  },
+});

@@ -7,7 +7,8 @@ const TastingNote = {
         producer: { type: String, required: false },
         country: { type: String, required: false },
         region: { type: String, required: false },
-        vintage: { type: Number, required: false }
+        vintage: { type: Number, required: false },
+        image: { type: String, required: false }
     },
     general: { wineType: { type: String, required: true }, color: { type: String, required: true } },
     appearance: {

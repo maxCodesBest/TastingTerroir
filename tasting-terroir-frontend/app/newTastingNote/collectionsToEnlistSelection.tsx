@@ -36,11 +36,13 @@ export default function CollectionsToEnlistSelection() {
         userStore.tokenKey!
       );
       if (userCollections) {
+        const mainCollectionId = userCollections[0].id;
         if (userCollections.length == 1) {
-          await submitTastingNote([userCollections[0].id]);
+          await submitTastingNote([mainCollectionId]);
           return;
         }
         setCollections(userCollections);
+        setSelectedCollections([mainCollectionId]);
       }
     }
   };

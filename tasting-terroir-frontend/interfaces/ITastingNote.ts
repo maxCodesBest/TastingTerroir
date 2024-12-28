@@ -27,6 +27,7 @@ export interface INewTastingNote {
     country?: string;
     region?: string;
     vintage?: number;
+    image?: string;
   };
   general: { wineType?: wineTypes; color?: wineMainColors };
   appearance: {

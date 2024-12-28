@@ -3,10 +3,9 @@ import { Controller } from '../decorators/controller';
 import { Route } from '../decorators/route';
 import { MongoGet } from '../decorators/mongoose/get';
 import { UserModel } from '../models/userModel';
-import { addNoteToCollections, createNewCollection, getCollectionTitlesByIds, getCollectionsByIds } from '../services/collectionService';
+import { getCollectionTitlesByIds, getCollectionsByIds } from '../services/collectionService';
 import { jwtAuth } from '../decorators/auth/jwtAuth';
 import { MongoCreate } from '../decorators/mongoose/create';
-import { TastingNoteModel } from '../models/tastingNoteModel';
 import { CollectionModel } from '../models/collectionModel';
 import { addCollectionToUser } from '../services/userService';
 

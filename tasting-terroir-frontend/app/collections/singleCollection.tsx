@@ -3,7 +3,7 @@ import { getNotesByIds } from "@/services/tastingNoteServices";
 import useCollectionStore from "@/stores/collection";
 import useUserStore from "@/stores/user";
 import { useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export default function SingleCollection() {
   const userStore = useUserStore();
@@ -28,14 +28,16 @@ export default function SingleCollection() {
   getNotes();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <View>{notes}</View>
-    </View>
+    <ScrollView>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View>{notes}</View>
+      </View>
+    </ScrollView>
   );
 }
