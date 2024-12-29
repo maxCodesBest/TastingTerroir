@@ -1,5 +1,7 @@
 //TODO find a more useful way to have this data written
 
+import { DropDownListItem } from "@/components/inputs/formDropdown";
+
 export enum wineTypes {
   regular = "Regular",
   sparkling = "Sparkling",
@@ -124,9 +126,7 @@ export enum ReadinessLevel {
   tooOld = "Too Old",
 }
 
-export function enumToArray<T extends object>(
-  enumObj: T
-): { label: string; value: string }[] {
+export function enumToArray<T extends object>(enumObj: T): DropDownListItem[] {
   return Object.keys(enumObj)
     .filter((key) => isNaN(Number(key)))
     .map((key) => ({

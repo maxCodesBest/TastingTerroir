@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 import useTastingNotesStore from "@/stores/TastingNote";
 
 export default function tastingTypeSelection() {

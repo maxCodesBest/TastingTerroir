@@ -1,23 +1,17 @@
 import { View } from "react-native";
-import {
-  Provider as PaperProvider,
-  Text,
-  Button,
-  TextInput,
-} from "react-native-paper";
 import { useState } from "react";
 import { userLogIn } from "@/services/authServices";
 import IUser from "@/interfaces/IUser";
 import useUserStore from "@/stores/user";
 import { useRouter } from "expo-router";
+import { Input, Text, Button } from "@rneui/themed";
+import CtaButton from "@/components/buttons/ctaButton";
+import FormTextInput from "@/components/inputs/formTextInput";
 
 export default function LogInForm() {
   const [user, setUser] = useState<Partial<IUser>>({ name: "" }); //name is irelevent here
   const userStore = useUserStore();
   const router = useRouter();
-
-  const isCompleteUser = (user: Partial<IUser>): user is IUser =>
-    user.email && user.password ? true : false;
 
   const submitHandler = async () => {
     const loggedUser = await userLogIn({
@@ -38,50 +32,37 @@ export default function LogInForm() {
     //     router.push("/");
     //   }
     // }
+    // const isCompleteUser = (user: Partial<IUser>): user is IUser =>
+    // user.email && user.password ? true : false;
   };
 
-  return (
-    <PaperProvider>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          padding: 50,
-          paddingTop: 75,
-        }}
-      >
-        <View style={{ width: "100%" }}>
-          <Text style={{ alignSelf: "center" }} variant="headlineLarge">
-            SIGN IN
-          </Text>
+  const emailChangeHandler = (text: string) =>
+    setUser({ ...user, email: text });
 
-          <TextInput
-            style={{
-              marginTop: 50,
-            }}
-            label="Email"
-            placeholder="Email"
-            value={user?.email}
-            onChangeText={(text) => {
-              setUser({ ...user, email: text });
-            }}
-          />
-          {/* TODO - implement email validation */}
-          <TextInput
-            style={{
-              marginTop: 50,
-              marginBottom: 50,
-            }}
-            label="Password"
-            placeholder="Password"
-            secureTextEntry={true}
-            onChangeText={(text) => setUser({ ...user, password: text })}
-          />
-          <Button mode="elevated" onPress={submitHandler}>
-            submit
-          </Button>
-        </View>
+  const passwordChangeHandler = (text: string) =>
+    setUser({ ...user, password: text });
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        padding: 50,
+        paddingTop: 75,
+      }}
+    >
+      <View style={{ width: "100%" }}>
+        <Text style={{ alignSelf: "center", fontSize: 40, marginBottom: 50 }}>
+          LOG IN
+        </Text>
+        <FormTextInput label="Email" onChangeHandler={emailChangeHandler} />
+        <FormTextInput
+          label="Password"
+          onChangeHandler={passwordChangeHandler}
+          isPassword={true}
+        />
+        <CtaButton label="Log In" callback={submitHandler} />
       </View>
-    </PaperProvider>
+    </View>
   );
 }

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 import { useLocalSearchParams } from "expo-router";
 import { Href } from "expo-router";
 import { wineMainColors } from "@/types/tastingNoteTypes";

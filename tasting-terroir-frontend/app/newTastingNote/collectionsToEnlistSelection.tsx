@@ -6,9 +6,10 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { ICollectionTitles } from "@/interfaces/ICollection";
 import { getAllUserCollectionTitles } from "@/services/collectionServices";
-import { Button, Text } from "react-native-paper";
 import CollectionsListToEnlist from "@/components/tastingNotes/collectionsListToEnlist";
 import { createTastingNote } from "@/services/tastingNoteServices";
+import { Text } from "@rneui/themed";
+import CtaButton from "@/components/buttons/ctaButton";
 
 //TODO - add loading mechanism until collections are fetched to know if we display this screen or directly create the note and call SubmitHandler()
 export default function CollectionsToEnlistSelection() {
@@ -64,7 +65,9 @@ export default function CollectionsToEnlistSelection() {
           paddingTop: 75,
         }}
       >
-        <Text variant="headlineLarge">COLLECTIONS</Text>
+        <Text style={{ alignSelf: "center", fontSize: 40, marginBottom: 50 }}>
+          COLLECTIONS
+        </Text>
       </View>
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
@@ -76,9 +79,7 @@ export default function CollectionsToEnlistSelection() {
           )}
 
           <View style={styles.submit}>
-            <Button mode="elevated" onPress={submitHandler}>
-              Submit!
-            </Button>
+            <CtaButton label="Submit!" callback={submitHandler} />
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

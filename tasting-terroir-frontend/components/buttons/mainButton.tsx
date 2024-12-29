@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
 import { Href, Link } from "expo-router";
+import { Button } from "@rneui/themed";
 
 export default function MainButton(props: {
   rerouthPath: Href;
   text: string;
-  icon?: string;
+  icon?: { name: string; type: string };
   callback?: () => void;
 }) {
   // TODO - the problem here is that navigating with buttons and router.push(path) is making some funny bugs so i hide a link under the button
@@ -20,9 +20,27 @@ export default function MainButton(props: {
       }}
       asChild
     >
-      <Button style={styles.mainButtons} icon={props.icon} mode="elevated">
-        {props.text}
-      </Button>
+      <Button
+        title={props.text}
+        buttonStyle={{
+          borderColor: "#242424",
+          height: "100%",
+          width: "100%",
+          borderWidth: 1,
+          borderRadius: 10,
+        }}
+        type="outline"
+        raised
+        titleStyle={{ color: "#242424" }}
+        containerStyle={{
+          marginTop: 40,
+          borderWidth: 0,
+          borderRadius: 10,
+          height: 150,
+          width: "80%",
+        }}
+        icon={{ name: props.icon?.name, type: props.icon?.type }}
+      />
     </Link>
   );
 }

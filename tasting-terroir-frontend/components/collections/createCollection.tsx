@@ -2,8 +2,8 @@ import { createNewCollection } from "@/services/collectionServices";
 import useUserStore from "@/stores/user";
 import React, { useState } from "react";
 import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { TextInput } from "react-native-paper";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import FormTextInput from "../inputs/formTextInput";
 
 export default function CreateCollection(props: {
   collections: React.JSX.Element[];
@@ -38,15 +38,9 @@ export default function CreateCollection(props: {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Create a new collection</Text>
-              <TextInput
-                style={{
-                  marginTop: 50,
-                  width: "100%",
-                }}
+              <FormTextInput
                 label="New collection name"
-                placeholder="New collection name"
-                value={collectionName}
-                onChangeText={(text) => {
+                onChangeHandler={(text) => {
                   setCollectionName(text);
                 }}
               />

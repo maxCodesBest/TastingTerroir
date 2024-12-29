@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 
 export default function AddNewTastingNote() {
   return (

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 import { Href } from "expo-router";
 import { wineTypes } from "@/types/tastingNoteTypes";
 import useTastingNotesStore from "@/stores/TastingNote";

@@ -1,11 +1,11 @@
 import CollectionCard from "@/components/collections/collectionCard";
 import CreateCollection from "@/components/collections/createCollection";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 import { getAllUserCollections } from "@/services/collectionServices";
 import useUserStore from "@/stores/user";
 import { useState } from "react";
-import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { ScrollView, View } from "react-native";
+import { Text } from "@rneui/themed";
 
 export default function Collections() {
   const [collections, setCollections] = useState<React.JSX.Element[]>();
@@ -36,26 +36,28 @@ export default function Collections() {
   getCollections(userStore.tokenKey!);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {!isRelevant && (
-        <View>
-          <Text>You Don't have any tasting notes yet :(</Text>
-          <MainButton
-            rerouthPath="/newTastingNote"
-            text="Create your first tasting note"
-            icon="glass-wine"
-          />
-        </View>
-      )}
-      {isRelevant && collections && (
-        <CreateCollection collections={collections} />
-      )}
-    </View>
+    <ScrollView>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {!isRelevant && (
+          <View>
+            <Text>You Don't have any tasting notes yet :(</Text>
+            <MainButton
+              rerouthPath="/newTastingNote"
+              text="Create your first tasting note"
+              icon={{ name: "wine-glass-alt", type: "font-awesome-5" }}
+            />
+          </View>
+        )}
+        {isRelevant && collections && (
+          <CreateCollection collections={collections} />
+        )}
+      </View>
+    </ScrollView>
   );
 }

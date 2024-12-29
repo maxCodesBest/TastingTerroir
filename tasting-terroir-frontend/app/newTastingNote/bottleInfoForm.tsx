@@ -1,12 +1,9 @@
 import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import {
-  Provider as PaperProvider,
-  Text,
-  Button,
-  TextInput,
-} from "react-native-paper";
 import useTastingNotesStore from "@/stores/TastingNote";
+import { Text } from "@rneui/themed";
+import FormTextInput from "@/components/inputs/formTextInput";
+import CtaButton from "@/components/buttons/ctaButton";
 
 export default function BottleInfoForm() {
   const note = useTastingNotesStore();
@@ -21,91 +18,78 @@ export default function BottleInfoForm() {
   };
   //TODO make this into smaller smarter components instead of hardcoded messy shit
   return (
-    <PaperProvider>
-      <ScrollView>
+    <ScrollView>
+      <View
+        style={{
+          alignItems: "center",
+          padding: 50,
+          paddingTop: 75,
+        }}
+      >
+        <Text style={{ alignSelf: "center", fontSize: 40, marginBottom: 50 }}>
+          LOG IN
+        </Text>
         <View
           style={{
-            alignItems: "center",
-            padding: 50,
-            paddingTop: 75,
+            width: "100%",
+            marginTop: 50,
           }}
         >
-          <Text variant="headlineLarge">BOTTLE INFORMATION</Text>
-          <View
-            style={{
-              width: "100%",
-              marginTop: 50,
+          <FormTextInput
+            label="Wine's name"
+            isMultiLine={true}
+            onChangeHandler={(text) =>
+              note.updateNote({
+                ...note,
+                bottleInfo: { ...note.bottleInfo, name: text },
+              })
+            }
+          />
+          <FormTextInput
+            label="Producer"
+            isMultiLine={true}
+            onChangeHandler={(text) =>
+              note.updateNote({
+                ...note,
+                bottleInfo: { ...note.bottleInfo, producer: text },
+              })
+            }
+          />
+          <FormTextInput
+            label="Country"
+            isMultiLine={true}
+            onChangeHandler={(text) =>
+              note.updateNote({
+                ...note,
+                bottleInfo: { ...note.bottleInfo, country: text },
+              })
+            }
+          />
+          <FormTextInput
+            label="Region"
+            isMultiLine={true}
+            onChangeHandler={(text) =>
+              note.updateNote({
+                ...note,
+                bottleInfo: { ...note.bottleInfo, region: text },
+              })
+            }
+          />
+          <FormTextInput
+            label="Vintage"
+            maxLength={4}
+            onChangeHandler={(text) => {
+              const filteredText = text.replace(/[^0-9]/g, "");
+              const filteredNumber = Number(filteredText);
+              note.updateNote({
+                ...note,
+                bottleInfo: { ...note.bottleInfo, vintage: filteredNumber },
+              });
             }}
-          >
-            <TextInput
-              label="Wine's name"
-              placeholder="Wine's name"
-              value={note.bottleInfo.name}
-              multiline={true}
-              onChangeText={(text) =>
-                note.updateNote({
-                  ...note,
-                  bottleInfo: { ...note.bottleInfo, name: text },
-                })
-              }
-            />
-            <TextInput
-              label="Producer"
-              placeholder="Prodcer"
-              value={note.bottleInfo.producer}
-              multiline={true}
-              onChangeText={(text) =>
-                note.updateNote({
-                  ...note,
-                  bottleInfo: { ...note.bottleInfo, producer: text },
-                })
-              }
-            />
-            <TextInput
-              label="Country"
-              placeholder="Country"
-              value={note.bottleInfo.country}
-              multiline={true}
-              onChangeText={(text) =>
-                note.updateNote({
-                  ...note,
-                  bottleInfo: { ...note.bottleInfo, country: text },
-                })
-              }
-            />
-            <TextInput
-              label="Region"
-              placeholder="Region"
-              value={note.bottleInfo.region}
-              multiline={true}
-              onChangeText={(text) =>
-                note.updateNote({
-                  ...note,
-                  bottleInfo: { ...note.bottleInfo, region: text },
-                })
-              }
-            />
-            <TextInput
-              label="Vintage"
-              placeholder="Vintage"
-              keyboardType="numeric"
-              maxLength={4}
-              value={note.bottleInfo.vintage?.toString()}
-              onChangeText={(text) => {
-                const filteredText = text.replace(/[^0-9]/g, "");
-                const filteredNumber = Number(filteredText);
-                note.updateNote({
-                  ...note,
-                  bottleInfo: { ...note.bottleInfo, vintage: filteredNumber },
-                });
-              }}
-            />
-            <Button mode="elevated" onPress={submitHandler}>
-              Continue
-            </Button>
-          </View>
+          />
+          <CtaButton label="Continue" callback={submitHandler} />
         </View>
-      </ScrollView>
-    </PaperProvider>
+      </View>
+    </ScrollView>
   );
 }

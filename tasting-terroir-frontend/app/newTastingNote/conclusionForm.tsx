@@ -1,13 +1,15 @@
 import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Dropdown } from "react-native-paper-dropdown";
-import { Provider as PaperProvider, Text, Button } from "react-native-paper";
 import {
   enumToArray,
   QualityLevel,
   ReadinessLevel,
 } from "@/types/tastingNoteTypes";
 import useTastingNotesStore from "@/stores/TastingNote";
+import CtaButton from "@/components/buttons/ctaButton";
+import { Text } from "@rneui/themed";
+import { FormDropdown } from "@/components/inputs/formDropdown";
+import FormTitle from "@/components/FormTitle";
 
 export default function ConclusionForm() {
   const note = useTastingNotesStore();
@@ -23,62 +25,49 @@ export default function ConclusionForm() {
 
   //TODO make this into smaller smarter components instead of hardcoded messy shit
   return (
-    <PaperProvider>
-      <ScrollView>
-        <View
-          style={{
-            alignItems: "center",
-            padding: 50,
-            paddingTop: 75,
-          }}
-        >
-          <Text variant="headlineLarge">CONCLUSION</Text>
-          <View
-            style={{
-              width: "100%",
-              marginTop: 50,
+    <ScrollView>
+      <View
+        style={{
+          alignItems: "center",
+          padding: 50,
+          paddingTop: 75,
+        }}
+      >
+        <FormTitle text="COLLECTIONS" />
+        <View>
+          <FormDropdown
+            label="Quality Level"
+            options={enumToArray(QualityLevel)}
+            ChangeHandler={(selection) => {
+              if (selection) {
+                note.updateNote({
+                  ...note,
+                  conclusion: {
+                    ...note.nose,
+                    qualityLevel: selection as QualityLevel,
+                  },
+                });
+              }
             }}
-          >
-            <Dropdown
-              label="Quality Level"
-              placeholder="Select Quality Level"
-              options={enumToArray(QualityLevel)}
-              value={note.conclusion.qualityLevel}
-              onSelect={(selection) => {
-                if (selection) {
-                  note.updateNote({
-                    ...note,
-                    conclusion: {
-                      ...note.nose,
-                      qualityLevel: selection as QualityLevel,
-                    },
-                  });
-                }
-              }}
-            />
-            <Dropdown
-              label="Readiness Level"
-              placeholder="Select Readiness Level"
-              options={enumToArray(ReadinessLevel)}
-              value={note.conclusion.readinessLevel}
-              onSelect={(selection) => {
-                if (selection) {
-                  note.updateNote({
-                    ...note,
-                    conclusion: {
-                      ...note.nose,
-                      readinessLevel: selection as ReadinessLevel,
-                    },
-                  });
-                }
-              }}
-            />
-            <Button mode="elevated" onPress={submitHandler}>
-              Continue
-            </Button>
-          </View>
+          />
+          <FormDropdown
+            label="Readiness Level"
+            options={enumToArray(ReadinessLevel)}
+            ChangeHandler={(selection) => {
+              if (selection) {
+                note.updateNote({
+                  ...note,
+                  conclusion: {
+                    ...note.nose,
+                    readinessLevel: selection as ReadinessLevel,
+                  },
+                });
+              }
+            }}
+          />
+          <CtaButton label="Continue" callback={submitHandler} />
         </View>
-      </ScrollView>
-    </PaperProvider>
+      </View>
+    </ScrollView>
   );
 }

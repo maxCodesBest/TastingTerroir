@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 
 export default function Index() {
   return (
@@ -13,17 +13,17 @@ export default function Index() {
       <MainButton
         rerouthPath="/newTastingNote"
         text="Add a new tasting note"
-        icon="glass-wine"
+        icon={{ name: "wine-glass-alt", type: "font-awesome-5" }}
       />
       <MainButton
         rerouthPath="/collections"
         text="Collections"
-        icon="bottle-wine"
+        icon={{ name: "wine-bottle", type: "font-awesome-5" }}
       />
       <MainButton
         rerouthPath="/generalInformation"
         text="General information"
-        icon="information"
+        icon={{ name: "info", type: "font-awesome-5" }}
       />
       <MainButton rerouthPath="/settings/logOut" text="Log Out" />
     </View>
