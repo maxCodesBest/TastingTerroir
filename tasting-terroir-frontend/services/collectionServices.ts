@@ -65,14 +65,14 @@ export async function createNewCollection(
   userId: string,
   userName: string,
   collectionName: string
-) {
+): Promise<ICollection> {
   const token = getToken(userId);
   const reqBody = JSON.stringify({
     title: collectionName,
     participantNames: [userName],
   });
 
-  await fetch(`http://localhost:2904/collections/create`, {
+  return await fetch(`http://localhost:2904/collections/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,16 +80,19 @@ export async function createNewCollection(
     },
     body: reqBody,
   }) //TODO .env consts
-    .then(async (response) =>
-      response.status == 201
-        ? console.log("new note created successfully")
-        : console.error(
-            "res status is -",
-            response.status,
-            " and res body is -",
-            response.body
-          )
-    )
+    .then(async (response) => {
+      if (response.status == 201) {
+        console.log("new collection created successfully");
+        const res = await response.json();
+        return res;
+      }
+      console.error(
+        "res status is -",
+        response.status,
+        " and res body is -",
+        response.body
+      );
+    })
     .catch((error) => {
       console.error(error);
     }); //TODO real error handling

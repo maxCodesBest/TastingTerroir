@@ -1,43 +1,50 @@
 import TastingNoteCard from "@/components/collections/tastingNoteCard";
+import { ITastingNote } from "@/interfaces/ITastingNote";
 import { getNotesByIds } from "@/services/tastingNoteServices";
 import useCollectionStore from "@/stores/collection";
 import useUserStore from "@/stores/user";
-import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { useEffect, useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 export default function SingleCollection() {
   const userStore = useUserStore();
   const collectionStore = useCollectionStore();
 
-  const [notes, setNotes] = useState<React.JSX.Element[]>();
+  const [notes, setNotes] = useState<ITastingNote[]>();
   const getNotes = async () => {
-    if (!notes) {
-      //TODO - add loading machanism and loading screen etc..
-      const collectionNotes = await getNotesByIds(
-        collectionStore.noteIds!,
-        userStore.tokenKey!
-      );
-      if (collectionNotes) {
-        const noteCards = collectionNotes.map((note) => {
-          return <TastingNoteCard key={note._id} note={note}></TastingNoteCard>;
-        });
-        setNotes(noteCards);
-      }
+    //TODO - add loading machanism and loading screen etc..
+    const collectionNotes = await getNotesByIds(
+      collectionStore.noteIds!,
+      userStore.tokenKey!
+    );
+    if (collectionNotes) {
+      setNotes(collectionNotes);
     }
   };
-  getNotes();
+
+  useEffect(() => {
+    getNotes();
+  }, []);
+
+  const renderNotes = ({ item }: { item: ITastingNote }) => {
+    return <TastingNoteCard key={item._id} note={item} />;
+  };
 
   return (
-    <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View>{notes}</View>
-      </View>
-    </ScrollView>
+    <SafeAreaView style={styles.centeredView}>
+      <FlatList
+        data={notes}
+        keyExtractor={(note) => note._id}
+        renderItem={renderNotes}
+      />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

@@ -41,7 +41,7 @@ class CollectionsController {
         const userId = req.body.decodedJwt.id;
         await addCollectionToUser(userId, newCollection);
 
-        return res.status(201);
+        return res.status(201).json(req.mongoCreate);
     }
 }
 

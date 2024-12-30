@@ -61,7 +61,13 @@ export default function CollectionCard(props: { collection: ICollection }) {
   //TODO - image should extend to entire card body size
   return (
     <Pressable onPress={handleClick}>
-      <Card containerStyle={{ width: "100%" }}>
+      <Card
+        containerStyle={{
+          width: "100%",
+          alignItems: "center",
+          alignSelf: "center",
+        }}
+      >
         <Card.Title>{props.collection.title}</Card.Title>
         <Card.Divider />
         <View
