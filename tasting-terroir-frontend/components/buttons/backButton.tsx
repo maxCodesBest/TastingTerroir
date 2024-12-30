@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import { Button, Icon } from "react-native-paper";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useState } from "react";
 import { useRouteInfo } from "expo-router/build/hooks";
+import { FAB, Icon } from "@rneui/themed";
 
 export default function BackButton() {
   const router = useRouter();
@@ -18,18 +18,17 @@ export default function BackButton() {
       <View
         style={{
           position: "absolute",
-          marginTop: 75,
+          marginTop: 72,
           marginLeft: 12.5,
         }}
       >
-        <Button
-          compact={true}
+        <FAB
+          color="transparent"
+          icon={{ name: "left", type: "antdesign" }}
           onPress={() =>
             router.canGoBack() ? router.back() : router.push("/")
           }
-        >
-          <Icon source={"chevron-left"} size={25}></Icon>
-        </Button>
+        />
       </View>
     )
   );

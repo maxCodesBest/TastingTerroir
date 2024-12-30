@@ -15,8 +15,20 @@ import {
   Body,
 } from "@/types/tastingNoteTypes";
 
-export interface ITastingNote {
-  userId?: string; //TODO - this is actually not optionable but it was a pain in the ass to make it mandatory so i should come back to this later and improve it
+import IBase from "./IBase";
+
+export interface ITastingNote extends IBase, INewTastingNote {}
+
+export interface INewTastingNote {
+  isBlindTaste?: boolean; //TODO - this isn't really optional but it makes a lot of problems in the zustand store as we have to initialize the object before we know if its a blind taste or not
+  bottleInfo: {
+    name?: string;
+    producer?: string;
+    country?: string;
+    region?: string;
+    vintage?: number;
+    image?: string;
+  };
   general: { wineType?: wineTypes; color?: wineMainColors };
   appearance: {
     clarity?: Clarity;

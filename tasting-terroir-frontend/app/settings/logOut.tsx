@@ -1,15 +1,10 @@
 import { View } from "react-native";
-import {
-  Provider as PaperProvider,
-  Text,
-  Button,
-  TextInput,
-} from "react-native-paper";
-import { useState } from "react";
-import { deleteToken, userLogIn } from "@/services/authServices";
-import IUser from "@/interfaces/IUser";
+import { deleteToken } from "@/services/authServices";
 import useUserStore from "@/stores/user";
 import { useRouter } from "expo-router";
+import CtaButton from "@/components/buttons/ctaButton";
+import { Text } from "@rneui/themed";
+import FormTitle from "@/components/FormTitle";
 
 export default function LogOutForm() {
   const userStore = useUserStore();
@@ -25,33 +20,22 @@ export default function LogOutForm() {
   };
 
   return (
-    <PaperProvider>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
 
-          padding: 50,
-          paddingTop: 75,
-        }}
-      >
-        <View style={{ width: "100%" }}>
-          <Text variant="headlineLarge">LOG OUT</Text>
-          <Text variant="headlineSmall">are you sure you want to log out?</Text>
+        padding: 50,
+        paddingTop: 75,
+      }}
+    >
+      <View style={{ width: "100%" }}>
+        <FormTitle text="LOG OUT" />
+        <Text>are you sure you want to log out?</Text>
 
-          <Button mode="elevated" onPress={logOutHandler}>
-            yes
-          </Button>
-          <Button
-            mode="elevated"
-            onPress={() => {
-              router.back();
-            }}
-          >
-            no
-          </Button>
-        </View>
+        <CtaButton label="Yes" callback={logOutHandler} />
+        <CtaButton label="No" callback={() => router.back()} />
       </View>
-    </PaperProvider>
+    </View>
   );
 }

@@ -1,24 +1,38 @@
-import { ITastingNote } from "@/interfaces/ITastingNote";
+import { WinePlaceHolderImage } from "@/assets/winePlaceHolder";
+import { INewTastingNote } from "@/interfaces/ITastingNote";
 import { create } from "zustand";
 
-interface ITastingNoteStore extends ITastingNote {
-  updateNote(newNote: ITastingNote): void;
+interface ITastingNoteStore extends INewTastingNote {
+  updateNote(newNote: INewTastingNote): void;
+  resetNote(): void;
 }
 
 const useTastingNotesStore = create<ITastingNoteStore>((set) => ({
+  bottleInfo: { image: WinePlaceHolderImage },
   general: {},
   appearance: {},
   nose: {},
   palate: {},
   conclusion: {},
-  updateNote: (newNote: ITastingNote) =>
+  updateNote: (newNote: INewTastingNote) =>
     set(() => ({
-      userId: newNote.userId,
+      isBlindTaste: newNote.isBlindTaste,
+      bottleInfo: newNote.bottleInfo,
       general: newNote.general,
       appearance: newNote.appearance,
       nose: newNote.nose,
       palate: newNote.palate,
       conclusion: newNote.conclusion,
+    })),
+  resetNote: () =>
+    set(() => ({
+      isBlindTaste: undefined,
+      bottleInfo: { image: WinePlaceHolderImage },
+      general: {},
+      appearance: {},
+      nose: {},
+      palate: {},
+      conclusion: {},
     })),
 }));
 

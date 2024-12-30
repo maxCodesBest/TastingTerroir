@@ -7,7 +7,8 @@ export function MongoQuery(model: Model<any>) {
 
         descriptor.value = async function (req: Request, res: Response, next: NextFunction) {
             try {
-                const documents = await model.find({ ...req.body });
+                const { decodedJwt, ...query } = req.body;
+                const documents = await model.find({ ...query });
                 req.mongoQuery = documents;
             } catch (error) {
                 logging.error(error);

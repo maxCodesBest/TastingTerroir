@@ -22,9 +22,10 @@ class AuthController {
     @MongoLogIn(UserModel)
     login(req: Request, res: Response, next: NextFunction) {
         const userId = req.mongoGet?._id as string;
-        const token = JwtHandler.createToken(userId);
+        const userName = req.mongoGet?.toObject().name;
+        const jwt = JwtHandler.createToken(userId);
 
-        return res.status(200).json({ userId: userId, jwt: token });
+        return res.status(200).json({ userInfo: { userId, userName }, jwt });
     }
 
     @Route('get', '/validateAuth')

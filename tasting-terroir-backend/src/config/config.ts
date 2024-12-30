@@ -5,6 +5,7 @@ dotenv.config();
 
 export const DEVELOPMENT = process.env.NODE_ENV === 'development';
 export const TEST = process.env.NODE_ENV === 'test';
+export const PERSONAL_DEV_USER = process.env.PERSONAL_DEV_USER || '';
 
 const MONGO_USER = process.env.MONGO_USER || '';
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '';

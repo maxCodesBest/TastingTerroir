@@ -1,5 +1,5 @@
 import { Stack, useNavigation, useRouter } from "expo-router";
-import BackButton from "@/components/backButton";
+import BackButton from "@/components/buttons/backButton";
 import { useEffect } from "react";
 import { tokenValidation } from "@/services/authServices";
 import useUserStore from "@/stores/user";

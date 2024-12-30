@@ -39,7 +39,7 @@
       [
         "expo-secure-store",
         {
-          "faceIDPermission": "Allow maxsays to access your Face ID biometric data."
+          "faceIDPermission": "Allow Tasting Terroir to access your Face ID biometric data."
         }
       ]
     ],

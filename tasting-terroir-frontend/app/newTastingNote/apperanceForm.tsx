@@ -1,8 +1,5 @@
 import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-
-import { Dropdown } from "react-native-paper-dropdown";
-import { Provider as PaperProvider, Text, Button } from "react-native-paper";
 import {
   Clarity,
   ColorIntensity,
@@ -14,10 +11,12 @@ import {
   RoseColorPalate,
   wineMainColors,
 } from "@/types/tastingNoteTypes";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import useTastingNotesStore from "@/stores/TastingNote";
+import { Text } from "@rneui/themed";
+import { FormDropdown } from "@/components/inputs/formDropdown";
+import CtaButton from "@/components/buttons/ctaButton";
 
-function getSpecificColorPalate(color: wineMainColors | undefined) {
+function getSpecificColorPalate(color: wineMainColors) {
   switch (color) {
     case wineMainColors.white:
       return enumToArray(WhiteColorPalate);
@@ -28,12 +27,13 @@ function getSpecificColorPalate(color: wineMainColors | undefined) {
     case wineMainColors.rose:
       return enumToArray(RoseColorPalate);
     default:
-      console.error("no color"); //TODO - real error handler
-      return enumToArray(Colors);
+      return [];
+    // throw Error("no color");
+    // TODO - this is called when finishing a note for some unclear reason, solve it and un-comment the error
   }
 }
 
-export default function NewTastingNoteForm() {
+export default function ApperanceForm() {
   const note = useTastingNotesStore();
   const router = useRouter();
 
@@ -43,79 +43,66 @@ export default function NewTastingNoteForm() {
 
   //TODO make this into smaller smarter components instead of hardcoded messy shit
   return (
-    <PaperProvider>
-      <ScrollView>
-        <View
-          style={{
-            alignItems: "center",
-            padding: 50,
-            paddingTop: 75,
-          }}
-        >
-          <Text variant="headlineLarge">APPERANCE</Text>
-          <View
-            style={{
-              width: "100%",
-              marginTop: 50,
+    <ScrollView>
+      <View
+        style={{
+          alignItems: "center",
+          padding: 50,
+          paddingTop: 75,
+        }}
+      >
+        <Text style={{ alignSelf: "center", fontSize: 40, marginBottom: 50 }}>
+          APPERANCE
+        </Text>
+        <View>
+          <FormDropdown
+            label="Clarity"
+            options={enumToArray(Clarity)}
+            ChangeHandler={(selection: string) => {
+              if (selection) {
+                note.updateNote({
+                  ...note,
+                  appearance: {
+                    ...note.appearance,
+                    clarity: selection as Clarity,
+                  },
+                });
+              }
             }}
-          >
-            <Dropdown
-              label="Clarity"
-              placeholder="Select Clarity"
-              options={enumToArray(Clarity)}
-              value={note.appearance.clarity}
-              onSelect={(selection) => {
-                if (selection) {
-                  note.updateNote({
-                    ...note,
-                    appearance: {
-                      ...note.appearance,
-                      clarity: selection as Clarity,
-                    },
-                  });
-                }
-              }}
-            />
-            <Dropdown
-              label="Intensity"
-              placeholder="Select Intensity"
-              options={enumToArray(ColorIntensity)}
-              value={note.appearance.colorIntensity}
-              onSelect={(selection) => {
-                if (selection) {
-                  note.updateNote({
-                    ...note,
-                    appearance: {
-                      ...note.appearance,
-                      colorIntensity: selection as ColorIntensity,
-                    },
-                  });
-                }
-              }}
-            />
-            <Dropdown
-              label="Color"
-              placeholder="Select Color"
-              options={getSpecificColorPalate(note.general.color)}
-              value={note.appearance.color}
-              onSelect={(selection) => {
-                if (selection) {
-                  note.updateNote({
-                    ...note,
-                    appearance: {
-                      ...note.appearance,
-                      color: selection as ColorPalate,
-                    },
-                  });
-                }
-              }}
-            />
-            <Button mode="elevated" onPress={submitHandler}>
-              to nose
-            </Button>
-          </View>
+          />
+          <FormDropdown
+            label="Intensity"
+            options={enumToArray(ColorIntensity)}
+            ChangeHandler={(selection) => {
+              if (selection) {
+                note.updateNote({
+                  ...note,
+                  appearance: {
+                    ...note.appearance,
+                    colorIntensity: selection as ColorIntensity,
+                  },
+                });
+              }
+            }}
+          />
+          <FormDropdown
+            label="Color"
+            options={getSpecificColorPalate(note.general.color!)}
+            ChangeHandler={(selection) => {
+              if (selection) {
+                note.updateNote({
+                  ...note,
+                  appearance: {
+                    ...note.appearance,
+                    color: selection as ColorPalate,
+                  },
+                });
+              }
+            }}
+          />
+          <CtaButton label="To nose" callback={submitHandler} />
         </View>
-      </ScrollView>
-    </PaperProvider>
+      </View>
+    </ScrollView>
   );
 }

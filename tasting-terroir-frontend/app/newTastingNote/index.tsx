@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MainButton from "@/components/mainButton";
+import MainButton from "@/components/buttons/mainButton";
 
 export default function AddNewTastingNote() {
   return (
@@ -11,7 +11,7 @@ export default function AddNewTastingNote() {
       }}
     >
       <MainButton
-        rerouthPath="/newTastingNote/wineTypeSelection"
+        rerouthPath="/newTastingNote/tastingTypeSelection"
         text="Create a new Tasting Note"
       />
       <MainButton rerouthPath="/newTastingNote" text="Resume a Tasting Note" />

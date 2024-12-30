@@ -14,7 +14,7 @@ class HealthcheckController {
     @Route('get', '/')
     getHealthCheck(req: Request, res: Response, next: NextFunction) {
         logging.info('Get Healthcheck route called successfully!');
-        return res.status(200).json({ maxsays: 'Hello World!' });
+        return res.status(200).json({ maxsayz: 'Hello World!' });
     }
 }
 

@@ -8,8 +8,13 @@ export function jwtAuth() {
             try {
                 const token = req.headers.authorization;
                 if (token) {
-                    const validation = JwtHandler.validateToken(token);
+                    let finalToken = token;
+                    if (token.includes('Bearer ')) {
+                        finalToken = token.slice(7); //TODO - really? please find a better way to remove the "bearer " text...
+                    }
+                    const validation = JwtHandler.validateToken(finalToken);
                     if (validation) {
+                        req.body.decodedJwt = JwtHandler.parseToken(finalToken);
                         return originalMethod.call(this, req, res, next);
                     }
                 }

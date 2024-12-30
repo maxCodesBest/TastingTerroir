@@ -28,7 +28,9 @@ export async function createNewUser(user: IUser): Promise<string> {
       console.error(error);
     }); //TODO real error handling
 }
-export async function userLogIn(user: IUser): Promise<string> {
+export async function userLogIn(
+  user: IUser
+): Promise<{ userId: string; userName: string }> {
   return fetch("http://localhost:2904/auth/login", {
     method: "POST",
     headers: {
@@ -42,9 +44,9 @@ export async function userLogIn(user: IUser): Promise<string> {
     }))
     .then((response) => {
       if (response.status == 200) {
-        saveToken(response.body.userId, response.body.jwt);
+        saveToken(response.body.userInfo.userId, response.body.jwt);
         console.log("user fetched successfully");
-        return response.body.userId;
+        return response.body.userInfo;
       } else {
         console.error("res body is - ", response.body);
         console.error("res status is - ", response.status);
