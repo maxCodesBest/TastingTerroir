@@ -1,8 +1,4 @@
 import { ITastingNote } from "@/interfaces/ITastingNote";
-import { WinePlaceHolderImage } from "@/assets/winePlaceHolder";
-import { ICollection } from "@/interfaces/ICollection";
-import { useRouter } from "expo-router";
-import useCollectionStore from "@/stores/collection";
 import { View, StyleSheet, Pressable } from "react-native";
 import { Text, Card } from "@rneui/themed";
 

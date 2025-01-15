@@ -1,6 +1,6 @@
 import { ITastingNote, INewTastingNote } from "@/interfaces/ITastingNote";
 import { getToken } from "./authServices";
-import { ICollectionTitles } from "@/interfaces/ICollection";
+import { BACKEND_PORT } from "./config";
 
 export async function createTastingNote(
   newNote: INewTastingNote,
@@ -14,7 +14,7 @@ export async function createTastingNote(
     collectionsToEnlist: collectionsToEnlist,
   });
 
-  fetch("http://localhost:2904/tastingNotes/create", {
+  fetch(`${BACKEND_PORT}/tastingNotes/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export async function getNotesByIds(
     _id: noteIds,
   });
 
-  return fetch("http://localhost:2904/tastingNotes/query", {
+  return fetch(`${BACKEND_PORT}/tastingNotes/query`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

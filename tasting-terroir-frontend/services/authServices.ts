@@ -1,9 +1,9 @@
 import * as SecureStore from "expo-secure-store";
-
 import IUser from "@/interfaces/IUser";
+import { BACKEND_PORT } from "./config";
 
 export async function createNewUser(user: IUser): Promise<string> {
-  return fetch("http://localhost:2904/auth/signup", {
+  return fetch(`${BACKEND_PORT}/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export async function createNewUser(user: IUser): Promise<string> {
 export async function userLogIn(
   user: IUser
 ): Promise<{ userId: string; userName: string }> {
-  return fetch("http://localhost:2904/auth/login", {
+  return fetch(`${BACKEND_PORT}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export async function tokenValidation(tokenKey: string): Promise<boolean> {
     return false;
   }
 
-  return fetch("http://localhost:2904/auth/validateAuth", {
+  return fetch(`${BACKEND_PORT}/auth/validateAuth`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
