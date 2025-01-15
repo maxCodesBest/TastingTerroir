@@ -1,12 +1,13 @@
 import { ICollection, ICollectionTitles } from "@/interfaces/ICollection";
 import { getToken } from "./authServices";
+import { BACKEND_PORT } from "./config";
 
 export async function getAllUserCollections(
   userId: string
 ): Promise<ICollection[]> {
   const token = getToken(userId);
   return await fetch(
-    `http://localhost:2904/collections/getAllUserCollections/${userId}`,
+    `${BACKEND_PORT}/collections/getAllUserCollections/${userId}`,
     {
       method: "GET",
       headers: {
@@ -36,7 +37,7 @@ export async function getAllUserCollectionTitles(
 ): Promise<ICollectionTitles[] | undefined> {
   const token = getToken(userId);
   return fetch(
-    `http://localhost:2904/collections/getAllUserCollectionTitles/${userId}`,
+    `${BACKEND_PORT}/collections/getAllUserCollectionTitles/${userId}`,
     {
       method: "GET",
       headers: {
@@ -72,7 +73,7 @@ export async function createNewCollection(
     participantNames: [userName],
   });
 
-  return await fetch(`http://localhost:2904/collections/create`, {
+  return await fetch(`${BACKEND_PORT}/collections/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -10,11 +10,7 @@ export default function BottleInfoForm() {
   const router = useRouter();
 
   const submitHandler = async () => {
-    if (note.isBlindTaste) {
-      router.push("/newTastingNote/collectionsToEnlistSelection");
-    } else {
-      router.push("/newTastingNote/wineTypeSelection");
-    }
+    router.push("/newTastingNote/bottleImageCapture");
   };
   //TODO make this into smaller smarter components instead of hardcoded messy shit
   return (

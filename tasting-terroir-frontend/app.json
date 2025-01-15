@@ -41,6 +41,12 @@
         {
           "faceIDPermission": "Allow Tasting Terroir to access your Face ID biometric data."
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Tasting Terroir to access your camera"
+        }
       ]
     ],
     "experiments": {
