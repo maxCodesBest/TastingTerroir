@@ -47,6 +47,12 @@
         {
           "cameraPermission": "Allow Tasting Terroir to access your camera"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Tasting Terroir access to your photos to let you share them with your friends."
+        }
       ]
     ],
     "experiments": {
