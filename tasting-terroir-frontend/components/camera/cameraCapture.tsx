@@ -1,6 +1,7 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 export default function CameraCapture(props: {
   captureHandler: (newUri: string, base64: string) => void;
@@ -8,6 +9,20 @@ export default function CameraCapture(props: {
 }) {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
+
+  const onAlbumSelection = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0,
+      base64: true,
+    });
+
+    if (!result.canceled && result.assets[0].base64) {
+      props.captureHandler(result.assets[0].uri, result.assets[0].base64);
+    }
+  };
 
   if (!permission) {
     // TODO - Camera permissions are still loading, add loader
@@ -51,6 +66,9 @@ export default function CameraCapture(props: {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={onCapture}>
             <Text style={styles.text}>Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onAlbumSelection}>
+            <Text style={styles.text}>From Album</Text>
           </TouchableOpacity>
         </View>
       </CameraView>
